@@ -1,0 +1,28 @@
+# deps and builds
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# env and secrets
+.env
+.env.*
+!.env.example
+*.pem
+
+# local caches (fetched filings, model responses, budget ledger)
+.cache/
+tmp/
+
+# test output
+playwright-report/
+test-results/
+
+# misc
+.DS_Store
+*.log
+.vercel
