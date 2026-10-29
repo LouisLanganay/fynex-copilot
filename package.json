@@ -1,0 +1,49 @@
+{
+  "name": "fynex-copilot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "What changed in your stocks, with the source. AI copilot on Muse Spark (Meta Model API).",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "smoke": "tsx scripts/smoke.ts",
+    "record-fixtures": "tsx scripts/record-fixtures.ts",
+    "analyze:sample": "tsx scripts/analyze-sample.ts",
+    "cost-report": "tsx scripts/cost-report.ts"
+  },
+  "dependencies": {
+    "cheerio": "1.2.0",
+    "next": "16.4.3",
+    "openai": "7.45.1",
+    "papaparse": "5.7.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "unpdf": "1.9.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@playwright/test": "1.61.1",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "^22.10.0",
+    "@types/papaparse": "^5.3.16",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "16.4.3",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.23.15",
+    "typescript": "~5.9.3",
+    "vitest": "5.0.5"
+  }
+}
