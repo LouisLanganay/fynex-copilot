@@ -28,3 +28,25 @@ Log of deviations from PLAN.md, verified API facts and spend, kept by the buildi
 - **Retries**: the `openai` SDK's built-in retry (3 retries, exponential backoff with jitter, honours `Retry-After`, never retries a 400) replaces a hand-written loop.
 - **SEC User-Agent**: `SEC_USER_AGENT` if set, else `fynex-copilot (contact@fynexapp.com)`.
 - **Ledger**: JSONL (`.cache/ledger.jsonl` by default, `COST_LEDGER_PATH` to move it). The night build used a ledger outside the repository with a total cap of $18.
+- **Scanned PDF fallback** is behind `ENABLE_PDF_TRANSCRIPTION=true`. No scanned PDF exists in the sample, so it was validated live on a text PDF (Schneider bond release, 2 pages, contributor model, $0.0004): Muse Spark read the native `file` block and its transcription matched the extracted text sentence for sentence (4 of 5 sampled sentences verified, the fifth spanned a page header). Unit tests cover the request shape with a fake client.
+- **Client-side input filter**: the advice filter also runs in the browser, so "Should I sell?" produces the refusal with no request at all (the end-to-end test counts requests to `/api/ask`). The server applies the same filter.
+- **No Vercel deploy** tonight (needs Louis's account). The app runs with `npm run demo` from a fresh clone without a key.
+
+### Spend (night of 2026-10-29)
+
+| Item | Model | Cost |
+|---|---|---|
+| Smoke calls | contributor | $0.0001 |
+| Dev run, 2 holdings (MSFT, SU) | contributor | $0.0052 |
+| Full sample run, 12 holdings, then re-recording (triage and one new KO analysis) | muse-spark-1.3 | $0.80 |
+| Live web test: one follow-up question | muse-spark-1.3 | $0.0135 |
+| Native PDF transcription check | contributor | $0.0004 |
+| **Total** | | **about $0.82** |
+
+Recorded run (fixtures/sample-run.json): 12 of 12 cards `ok`, 52 claims, 116 quotes, all verified; one card (Schneider) needed the retry because its first answer hit `max_tokens` (fixed by raising it). 277k input tokens (38k cached), 85k output tokens of which 72k reasoning, $0.67.
+
+### Still to do (M6 and M7)
+
+- Re-run the sample live around Nov 2 to pick up the releases of Oct 30 onwards (Apple's quarter, more Q3 releases), review every card by hand, re-record (`npm run analyze:sample -- --record`, about $0.70).
+- Optional Vercel deploy (Louis), then the video (docs/demo-video.md) and the submission.
+- Tag `v1.0-hackathon` at the freeze.

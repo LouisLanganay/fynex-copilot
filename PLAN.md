@@ -335,63 +335,63 @@ Development budget target: under $40 total (smoke tests, fixture recording, abou
 Dates are in Paris time. Each milestone ends with: all tests green, PLAN.md boxes ticked, a commit pushed. Times are targets, the order is what matters.
 
 ### M0: Scaffold and smoke test (Tue Oct 27)
-- [ ] Next.js App Router + TypeScript + Tailwind + vitest + playwright scaffold, `npm run dev`, `npm test`, `npm run e2e`, `npm run lint`, `npm run typecheck`.
-- [ ] `lib/llm/client.ts` with provider switch (meta | baseten), retries (429/5xx/timeouts, exponential backoff with jitter, honour Retry-After), cost accounting.
-- [ ] `scripts/smoke.ts`: `GET /v1/models` then one tiny chat completion with a 3-field json_schema (costs < $0.01). Prints model list, tokens, cost.
-- [ ] GitHub Actions: lint, typecheck, unit tests on push (no secrets needed).
+- [x] Next.js App Router + TypeScript + Tailwind + vitest + playwright scaffold, `npm run dev`, `npm test`, `npm run e2e`, `npm run lint`, `npm run typecheck`.
+- [x] `lib/llm/client.ts` with provider switch (meta | baseten), retries (429/5xx/timeouts, exponential backoff with jitter, honour Retry-After), cost accounting.
+- [x] `scripts/smoke.ts`: `GET /v1/models` then one tiny chat completion with a 3-field json_schema (costs < $0.01). Prints model list, tokens, cost.
+- [x] GitHub Actions: lint, typecheck, unit tests on push (no secrets needed).
 - **Done when:** `npm run smoke` prints a valid JSON object from `muse-spark-1.3` (or is skipped with a clear message when `MODEL_API_KEY` is missing), and CI is green.
 
 ### M1: Portfolio in, weights out (Wed Oct 28)
-- [ ] CSV parser (5.1) with tests: sample file, `;` + decimal comma file, BOM, bad rows, wrong ISIN checksum, 51 rows rejected.
-- [ ] ECB FX + weights (5.2) with tests (fixed FX fixture).
-- [ ] Resolution (5.3 steps 1 to 5) with recorded HTTP fixtures for SEC tickers, OpenFIGI, GLEIF.
-- [ ] `POST /api/portfolio` + portfolio preview screen.
+- [x] CSV parser (5.1) with tests: sample file, `;` + decimal comma file, BOM, bad rows, wrong ISIN checksum, 51 rows rejected.
+- [x] ECB FX + weights (5.2) with tests (fixed FX fixture).
+- [x] Resolution (5.3 steps 1 to 5) with recorded HTTP fixtures for SEC tickers, OpenFIGI, GLEIF.
+- [x] `POST /api/portfolio` + portfolio preview screen.
 - **Done when:** uploading `samples/portfolio.csv` shows 12 rows, weights summing to 100.0%, 6 `SEC EDGAR` badges (5 US + ASML) and 6 `AMF` badges.
 
 ### M2: Documents (Thu Oct 29)
-- [ ] EDGAR source: submissions, candidate filter, exhibit picking, HTML to text. SEC rate limiter + User-Agent.
-- [ ] AMF source: ODSQL query, subtype filter, English preference, PDF download, per-page extraction.
-- [ ] ESEF source: filings.xbrl.org lookup by LEI, XHTML report to text, first 30 pages.
-- [ ] Scanned-PDF detection + model transcription fallback (behind a flag, tested with a small scanned fixture).
-- [ ] Cache layer (5.7).
-- [ ] `scripts/record-fixtures.ts`: fetches and stores the sample portfolio's documents under `fixtures/` (public documents only).
+- [x] EDGAR source: submissions, candidate filter, exhibit picking, HTML to text. SEC rate limiter + User-Agent.
+- [x] AMF source: ODSQL query, subtype filter, English preference, PDF download, per-page extraction.
+- [x] ESEF source: filings.xbrl.org lookup by LEI, XHTML report to text, first 30 pages.
+- [x] Scanned-PDF detection + model transcription fallback (behind a flag, tested with a small scanned fixture).
+- [x] Cache layer (5.7).
+- [x] `scripts/record-fixtures.ts`: fetches and stores the sample portfolio's documents under `fixtures/` (public documents only).
 - **Done when:** a script lists, for each of the 12 sample holdings, at least one candidate document from the last 120 days with title, date and extracted text length > 2,000 characters, and fixtures are committed.
 
 ### M3: Analysis, verification, guardrail (Fri Oct 30)
-- [ ] Prompts (`lib/llm/prompts.ts`, with `PROMPT_VERSION`).
-- [ ] Triage tool loop (5.4) + deterministic fallback, tested with a fake client.
-- [ ] Analysis call with json_schema + zod validation.
-- [ ] Normalization + quote verifier + numbers check, with tests (section 10).
-- [ ] Retry once, then fallback template.
-- [ ] Guardrail input and output filters with tests.
-- [ ] `POST /api/analyze` (`maxDuration = 120`).
+- [x] Prompts (`lib/llm/prompts.ts`, with `PROMPT_VERSION`).
+- [x] Triage tool loop (5.4) + deterministic fallback, tested with a fake client.
+- [x] Analysis call with json_schema + zod validation.
+- [x] Normalization + quote verifier + numbers check, with tests (section 10).
+- [x] Retry once, then fallback template.
+- [x] Guardrail input and output filters with tests.
+- [x] `POST /api/analyze` (`maxDuration = 120`).
 - **Done when:** `npm run analyze:sample` runs the 12 sample holdings live, and every produced card has 100% verified quotes or is a fallback template; cost printed and under $3.
 
 ### M4: UI (Sat Oct 31)
-- [ ] Feed with streaming cards (parallel requests, concurrency 4), skeletons with step labels, error and empty states.
-- [ ] Source panel with highlighted passage, page number, "Open original" link.
-- [ ] Follow-up box with guarded answers.
-- [ ] Budget badge (estimate before run, live spend during run).
-- [ ] Mobile layout (source panel becomes a bottom sheet).
+- [x] Feed with streaming cards (parallel requests, concurrency 4), skeletons with step labels, error and empty states.
+- [x] Source panel with highlighted passage, page number, "Open original" link.
+- [x] Follow-up box with guarded answers.
+- [x] Budget badge (estimate before run, live spend during run).
+- [x] Mobile layout (source panel becomes a bottom sheet).
 - **Done when:** on the sample portfolio, a user can go from upload to clicking a quote and seeing it highlighted in under 60 seconds with a warm cache, and the question "Should I sell LVMH?" shows the refusal without a model call.
 
 ### M5: Hardening and deploy (Sun Nov 1)
-- [ ] Budget caps (section 8), passcode gate, `DEMO_READONLY`, rate limiting per IP.
-- [ ] Demo cache: a recorded run of the sample portfolio replayable with no key (`fixtures/sample-run.json`), labelled "Cached result from <date>".
-- [ ] End-to-end test (section 10) green in CI with fixtures.
-- [ ] Vercel deploy config (`vercel.json` if needed, env var list in README). Deploy itself is done by Louis (section 11) or by the agent if a `VERCEL_TOKEN` secret is provided.
+- [x] Budget caps (section 8), passcode gate, `DEMO_READONLY`, rate limiting per IP.
+- [x] Demo cache: a recorded run of the sample portfolio replayable with no key (`fixtures/sample-run.json`), labelled "Cached result from <date>".
+- [x] End-to-end test (section 10) green in CI with fixtures.
+- [x] Vercel deploy config (`vercel.json` if needed, env var list in README). No `vercel.json` needed (route `maxDuration` set in code); the deploy itself is not done. Deploy itself is done by Louis (section 11) or by the agent if a `VERCEL_TOKEN` secret is provided.
 - **Done when:** a fresh clone with no `.env` runs `npm run dev`, loads the sample, and shows the cached run end to end; with a key, a live run works.
 
 ### M6: Polish and real run (Mon Nov 2)
 - [ ] Live run on the sample portfolio with fresh documents (many Q3 releases land Oct 28 to 30), review every card by hand, fix prompt issues, re-record fixtures.
-- [ ] README: screenshots (GIF optional), architecture diagram (mermaid), "Built during the hackathon" list updated with the real commit range.
+- [x] README: screenshots (GIF optional), architecture diagram (mermaid), "Built during the hackathon" list updated with the real commit range.
 - [ ] Optional stretch, only if everything above is done: (a) Baseten / Muse Spark Open provider toggle shown in the UI footer; (b) XBRL companyfacts for US holdings to show code-computed YoY revenue next to the model's claim; (c) "compare with previous release" diff view.
 - **Done when:** README is complete, a stranger can follow it, and the demo script (section 12) runs start to finish without a hiccup twice in a row.
 
 ### M7: Freeze (Tue Nov 3, 21:00 Paris)
 - [ ] Feature freeze. Only bug fixes after this point.
 - [ ] Final fixture recording, tag `v1.0-hackathon`.
-- [ ] Submission checklist (section 12.2) prepared, with all links filled in except the video.
+- [x] Submission checklist (section 12.2) prepared, with all links filled in except the video (see docs/demo-video.md).
 - **Done when:** tag pushed, deployed URL works in a private window, checklist ready for Louis.
 
 **Wed Nov 4: buffer day.** Louis records the video and submits. Deadline 21:00 ET = Thu Nov 5 03:00 Paris. Aim to submit by Wed Nov 4 22:00 Paris.
