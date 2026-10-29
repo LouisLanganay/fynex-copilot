@@ -7,7 +7,7 @@ import { BudgetExceededError, type RunBudget } from "@/lib/llm/budget";
 import type { LlmClient } from "@/lib/llm/client";
 import { PROMPT_VERSION, type HoldingFacts } from "@/lib/llm/prompts";
 import { transcribePdf, transcriptionEnabled } from "@/lib/llm/transcribe";
-import { triage, type TriageCandidate } from "@/lib/llm/triage";
+import { triage, type TriageCandidate, type TriageResult } from "@/lib/llm/triage";
 import { allowedNumbers, eur, pct, type PortfolioSummary, type WeightedHolding } from "@/lib/portfolio/weights";
 import { listCandidates, loadDocument } from "@/lib/sources/fetch";
 import type { CandidateDocument, ResolvedHolding, SourceDocument } from "@/lib/sources/types";
@@ -146,7 +146,11 @@ export async function analyzeHolding(
   try {
     // 2. Triage (tool calling).
     step(triageCands.length > 1 ? `Choosing among ${triageCands.length} documents` : "One document found");
-    const t = await triage(client, h.name, triageCands, budget);
+    // Triage depends only on the candidate list: cache it like the analysis (live runs only).
+    const triageKey = sha([client.model, PROMPT_VERSION, ...triageCands.map((c) => c.id)].join("|"));
+    const triageHit = o.useCache !== false && client.live ? cacheGet<TriageResult>("triage", triageKey) : null;
+    const t = triageHit ? { ...triageHit.value, costUsd: 0, usage: { prompt: 0, cached: 0, completion: 0, reasoning: 0 } } : await triage(client, h.name, triageCands, budget);
+    if (!triageHit && client.live) cacheSet("triage", triageKey, t);
     card.triage = { method: t.method, reason: t.reason, toolCalls: t.toolCalls };
     card.costUsd += t.costUsd;
     addUsage(card, t.usage);

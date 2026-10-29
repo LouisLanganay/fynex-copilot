@@ -154,11 +154,13 @@ export function companyKey(name: string): string {
     .trim();
 }
 
+/**
+ * Same company? Keys must be equal once legal suffixes are dropped. A looser
+ * first-word rule matched "Schneider National" to Schneider Electric and
+ * "Vinci Compass Investments" to Vinci, so it was removed.
+ */
 export function namesMatch(a: string, b: string): boolean {
   const ka = companyKey(a);
   const kb = companyKey(b);
-  if (!ka || !kb) return false;
-  if (ka === kb) return true;
-  const first = (k: string) => k.split(" ")[0];
-  return first(ka).length >= 4 && first(ka) === first(kb);
+  return !!ka && ka === kb;
 }

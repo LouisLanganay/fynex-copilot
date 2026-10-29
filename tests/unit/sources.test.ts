@@ -80,6 +80,10 @@ describe("EDGAR", () => {
     expect(companyKey("ASML Holding N.V.")).toBe("asml");
     expect(namesMatch("ASML HOLDING NV", "ASML Holding N.V.")).toBe(true);
     expect(namesMatch("SUNCOR ENERGY INC", "Schneider Electric SE")).toBe(false);
+    expect(namesMatch("Schneider National, Inc.", "Schneider Electric SE")).toBe(false);
+    expect(namesMatch("Vinci Compass Investments Ltd.", "Vinci SA")).toBe(false);
+    expect(namesMatch("COCA COLA CO", "The Coca-Cola Company")).toBe(true);
+    expect(namesMatch("JPMORGAN CHASE & CO", "JPMorgan Chase & Co.")).toBe(true);
   });
 });
 

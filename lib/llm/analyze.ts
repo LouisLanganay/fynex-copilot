@@ -26,7 +26,8 @@ export interface AnalysisResult {
   note?: string;
 }
 
-export const ANALYSIS_MAX_TOKENS = 8000;
+// Muse Spark spends 4k to 8k tokens reasoning before the JSON: 8000 was measured too low once (truncated JSON).
+export const ANALYSIS_MAX_TOKENS = 12000;
 
 interface Evaluation {
   claims: CardClaim[];
@@ -154,7 +155,7 @@ export async function analyzeDocuments(
     } catch (e) {
       rejections.push({ attempt, kind: "schema", detail: `Invalid JSON: ${(e as Error).message.slice(0, 200)}` });
       messages.push({ role: "assistant", content: content ?? "" });
-      messages.push({ role: "user", content: retryMessage(["The answer was not valid JSON for the schema."]) });
+      messages.push({ role: "user", content: retryMessage(["The answer was cut off or was not valid JSON for the schema. Keep the reasoning short and return the complete JSON."]) });
       continue;
     }
     const ev = evaluateUpdate(update, verifier, promptToDoc, allowed, attempt);
