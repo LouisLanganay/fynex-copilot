@@ -27,6 +27,11 @@ export interface AnalysisResult {
 }
 
 // Muse Spark spends 4k to 8k tokens reasoning before the JSON: 8000 was measured too low once (truncated JSON).
+/** House style for model-written text: no en or em dashes (quotes stay verbatim). */
+export function styleText(s: string): string {
+  return s.replace(/\s*[\u2014]\s*/g, ", ").replace(/[\u2013]/g, "-");
+}
+
 export const ANALYSIS_MAX_TOKENS = 12000;
 
 interface Evaluation {
@@ -70,7 +75,7 @@ export function evaluateUpdate(
       reject("advice", `Advice-like wording is not allowed: "${advice}"`);
       continue;
     }
-    claims.push({ category: c.category, statement: c.statement, whyItMatters: c.why_it_matters, quotes: v.verified });
+    claims.push({ category: c.category, statement: styleText(c.statement), whyItMatters: styleText(c.why_it_matters), quotes: v.verified });
   }
 
   const allQuoteTexts = claims.flatMap((c) => c.quotes.map((q) => q.text));
@@ -164,9 +169,9 @@ export async function analyzeDocuments(
       return {
         state: "ok",
         status: update.status,
-        headline: update.headline,
+        headline: styleText(update.headline),
         claims: ev.claims,
-        portfolioNote: update.portfolio_note,
+        portfolioNote: styleText(update.portfolio_note),
         attempts: attempt,
         rejections,
         usage,

@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { analyzeDocuments } from "@/lib/llm/analyze";
+import { analyzeDocuments, styleText } from "@/lib/llm/analyze";
 import { askDocuments } from "@/lib/llm/ask";
 import { appendLedger, assertTotalBudget, BudgetExceededError, ledgerTotal, RunBudget } from "@/lib/llm/budget";
 import { FakeClient, MetaModelClient, type ChatRequest } from "@/lib/llm/client";
@@ -72,6 +72,12 @@ describe("prices and budget", () => {
     expect(ledgerTotal(f)).toBeCloseTo(17.99);
     expect(() => assertTotalBudget(0.02, f, 18)).toThrow(BudgetExceededError);
     expect(() => assertTotalBudget(0.005, f, 18)).not.toThrow();
+  });
+});
+
+describe("styleText", () => {
+  it("removes en and em dashes from model-written text", () => {
+    expect(styleText("the 2026\u20132028 program \u2014 now larger")).toBe("the 2026-2028 program, now larger");
   });
 });
 

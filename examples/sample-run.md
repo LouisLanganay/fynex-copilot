@@ -221,7 +221,7 @@ _This holding represents 8.9% of the portfolio at rank 5 of 12 with value EUR 21
    > "•Full-year 2026 total net sales expected to be between €44 billion and €45 billion, with a gross margin around 56%"
    > [ASML Holding N.V.: 6-K: 6-K (2026-10-14), 2026-10-14](https://www.sec.gov/Archives/edgar/data/937966/000162828026065813/pressreleasefinancialresul.htm)
 
-3. **In the third quarter the company purchased around €4.1 billion of shares under the 2026–2028 buyback program, and declared an interim dividend of €1.88 per share payable on November 4, 2026.**
+3. **In the third quarter the company purchased around €4.1 billion of shares under the 2026-2028 buyback program, and declared an interim dividend of €1.88 per share payable on November 4, 2026.**
    For a holder with 8.2% exposure, buybacks and dividends describe cash returned to shareholders as stated in the release.
    > "In the third quarter, we purchased around €4.1 billion worth of shares under the current 2026–2028 share buyback program."
    > [ASML Holding N.V.: 6-K: 6-K (2026-10-14), 2026-10-14](https://www.sec.gov/Archives/edgar/data/937966/000162828026065813/pressreleasefinancialresul.htm)

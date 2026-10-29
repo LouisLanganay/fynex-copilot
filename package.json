@@ -12,6 +12,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "demo": "next build && DEMO_READONLY=true next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -19,7 +20,8 @@
     "smoke": "tsx scripts/smoke.ts",
     "record-fixtures": "tsx scripts/record-fixtures.ts",
     "analyze:sample": "tsx scripts/analyze-sample.ts",
-    "cost-report": "tsx scripts/cost-report.ts"
+    "cost-report": "tsx scripts/cost-report.ts",
+    "render-example": "tsx scripts/render-example.ts"
   },
   "dependencies": {
     "cheerio": "1.2.0",
