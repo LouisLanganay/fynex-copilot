@@ -55,8 +55,45 @@ Recorded run (fixtures/sample-run.json): 12 of 12 cards `ok`, 52 claims, 116 quo
 - Font: Inter from `@fontsource-variable/inter` through `next/font/local`, bundled at build time, no network at build or at runtime (OFL). Latin subset only.
 - Selectors kept for `../video/scripts/`: `try-sample`, `analyze`, `holding-row`, `source-badge`, `weight-sum`, `card`, `claim`, `source-chip`, `quote-mark`, `source-panel`, `card-footer`, `ask-input`, `ask-submit`, `ask-answer`, `article[data-holding]`, `p.font-medium` as the card headline, the heading "What changed", `claim.locator('p').nth(1)`. Behavior changes for the capture script: `holding-row`, `analyze` and "Drop your portfolio CSV" leave the DOM once a run starts, and the page scrolls to the top on Analyze. The status label in a card is now plain text, still "Material change".
 
+### Earnings call audio: feasibility test, GO
+
+The four conditions, each checked for real on 2026-11-02:
+
+1. **Official public recording: yes.** Microsoft FY27 Q1 call, 2026-10-28, sample holding MSFT. Event page https://www.microsoft.com/en-us/investor/events/fy-2027/earnings-fy-2027-q1 (no login, replay announced through 2027-10-28 in the press release), which embeds Microsoft's own player. The player's configuration lists a resource titled "Download URL": an MP4 on Microsoft's storage, signed for reading until 2031 (200, 3.53 GB, H.264 and AAC, 57:28, range requests accepted). The player's HLS stream has a separate audio rendition. No wall crossed: both are what the public page hands to any browser. curl gets 403 on Apple's, NVIDIA's, ASML's and Schneider's investor sites: not pursued, and not needed.
+2. **Transcription API: yes.** Docs read first: https://dev.meta.ai/docs/speech-to-text, /docs/api-reference/voice/transcribe. `POST https://api.meta.ai/v1/asr/transcribe`, multipart: `request` (JSON: `model` `muse-voice-transcribe-1.0`, `audioEncoding` `WAV` required, `mode` `PUSH_TO_TALK` default, `ENDPOINTING` or `DIARIZATION`, `languageBias`, `keywords`) and `audio`. Mono 16-bit PCM WAV at 16 or 24 kHz only, 10 minutes and 32 MB at most per request. $0.18 per hour of audio, whole seconds rounded down; failed and 429 requests not billed; 256 concurrent streams, 16,000 per hour. No contributor mode for this model. Response: `audioDurationMs`, `turns[]` with `startMs`, `endMs`, `transcript`. Test call on 60 s: 200. A vocabulary keyword can backfire: with "Amy Hood" in `keywords`, "MAI Transcribe" came back as "Amy Hood", so no person's name is biased.
+3. **Timestamps: yes, derived from timed clips.** The API gives turn-level times only, documented as approximate, and a 60 s clip of continuous speech came back as one 59.5 s turn. So the recording is cut at its pauses (`silencedetect`) into 173 clips of 15 s or more, 40 s at most, each keeping its offset. Result: 247 turns, 52,159 characters. Checked three ways against sources that are not ours:
+   - Microsoft's own English captions from the same player. Turn starts against the caption of the same words (158 turns matched exactly on 6 words): median error 0.39 s, 90th percentile 1.9 s, maximum 4.2 s.
+   - A passage's time inside a turn, by proportion of characters, against the captions, on 988 unique phrases: median error 1.0 s, 90th percentile 2.8 s, maximum 5.5 s. Using the turn start alone gives a median of 5.7 s and up to 36 s, hence the proportion, minus a 3 s lead.
+   - For every timestamp of the recorded card: `ffmpeg -ss` on the official MP4 itself at that second, 30 s transcribed again. 4 of 4 passages come back, starting in the first words (word 0 to 4 of about 80), all words matching but one (the transcript's "capex expenditures" comes back as "capital expenditures", which is what the official transcript has). Caption times for the same passages are 0.9 to 3.6 s after the recorded time, so playback starts just before them.
+   Words: 14.0% word difference against Microsoft's official transcript (punctuation-free comparison; much of it is number and term formatting, plus repeated words: 9,139 words against 8,712). Numbers: 88 distinct numbers in each, 1 different ("2027" against "2026"). Two stutters on figures in the whole call ("97.1 1 billion", "16.4 16.4 billion"), now rejected by the verifier.
+4. **Player: yes.** `<audio src="...VOD001.mp4?...#t=1634">` in Chromium: seeks to 1634, plays on (1636.9 three seconds later), Microsoft's server allows it without CORS. Three chips measured: metadata in about 2.8 s, playing at the exact second about 6 s after the player appears. The panel says so while it waits. On failure the panel falls back to a link with the time displayed.
+
+Choices:
+
+- The audio for transcription comes from the HLS audio rendition (165 MB of WAV) rather than the MP4 (3.5 GB of video). The third check above is what shows both share a timeline.
+- `fixtures/cache/doc/a790d54cd21d1a38.json` holds only the quoted passages (`excerpt: true`). The full transcript lives under `.cache/transcript/`, audio under `.cache/calls/`, both gitignored. A call is a live candidate only once `npm run record-call` has cached its transcript. `readDocument` serves the excerpt in replay mode, as the recorded offsets point into it.
+- `lib/sources/calls.ts` carries Microsoft's signed media URL in this public repository. It is not our secret: Microsoft publishes it to anyone who opens the page. It does expire in 2031 and could be reissued.
+- `TRANSCRIPT_RULES` is added to the user message only when a transcript is read, so the prompt of the 11 other holdings is unchanged. PROMPT_VERSION bumped for the new triage line.
+- The card reads the call as primary and the release of the same day as comparison. The triage chose that on all 4 runs, following one added line in its prompt. Figures come from the release; the outlook only exists on the call (the release says so itself).
+- The Microsoft card was recorded on the portfolio of the Oct 29 run. A first attempt with today's ECB rates gave 8.8% where the table shows 8.9%.
+- No speaker is named: `ENDPOINTING` has no labels, and the prompt forbids a name unless the transcript says who speaks.
+- Only Microsoft: it is rank 5, so it is not in the opening block's 3 rows. Not forced.
+
+Replay numbers after the addition: 12 of 12 cards `ok`, 51 claims (52 before), 118 quotes (116 before), all verified, 281,491 input tokens (37,875 cached), 86,173 output tokens of which 73,062 reasoning, $0.84 (of which $0.17 speech to text, Microsoft card $0.23 against $0.05 before).
+
+### Spend (2026-11-02)
+
+| Item | Model | Cost |
+|---|---|---|
+| Test call, 60 s, by curl (not in the ledger) | muse-voice-transcribe-1.0 | $0.003 |
+| Whole call, 173 clips, cached clip by clip | muse-voice-transcribe-1.0 | $0.168 |
+| Dev run of the card | contributor | $0.003 |
+| Recorded card, 3 runs (2 discarded: stuttered number, today's FX) | muse-spark-1.3 | $0.17 |
+| Re-listening at the recorded timestamps, 2 rounds | muse-voice-transcribe-1.0 | $0.012 |
+| **Total** (ledger `../cost-log.jsonl`: $0.35) | | **about $0.36** |
+
 ### Still to do (M6 and M7)
 
-- Re-run the sample live around Nov 2 to pick up the releases of Oct 30 onwards (Apple's quarter, more Q3 releases), review every card by hand, re-record (`npm run analyze:sample -- --record`, about $0.70).
+- Re-run the sample live around Nov 2 to pick up the releases of Oct 30 onwards (Apple's quarter, more Q3 releases), review every card by hand, re-record (`npm run analyze:sample -- --record`, about $0.70). Not done on Nov 2: the brief keeps the Oct 29 run for the other holdings. `--record` would also replace the Microsoft card and its excerpt: `npm run record-call -- --analyze --record` puts them back.
 - Optional Vercel deploy (Louis), then the video (docs/demo-video.md) and the submission.
 - Tag `v1.0-hackathon` at the freeze.

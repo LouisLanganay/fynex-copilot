@@ -120,6 +120,10 @@ tests/                      unit (vitest) + e2e (playwright)
 - **ECB reference rates** `https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml` (EUR base, daily) for FX conversion of weights. Cache 12 h.
 - No free keyless price feed was found working (Stooq returned 404). Weights are therefore computed **at cost** unless the CSV has a `last_price` column (section 5.2).
 
+### 3.5b Muse Voice Transcribe (verified 2026-11-02, details in NOTES.md)
+
+`POST /v1/asr/transcribe`, multipart, WAV only, 10 minutes and 32 MB per request, $0.18 per hour of audio, turn-level timestamps.
+
 ### 3.6 Baseten (optional, verified partially)
 
 - OpenAI-compatible: base URL `https://inference.baseten.co/v1`, key `BASETEN_API_KEY`, `POST /v1/chat/completions`, `response_format` supported. Hackathon model id: **`meta-models/muse-spark-open-1026`** (the guide says not to use the doc's `meta-models/muse-spark-open`).
@@ -393,6 +397,12 @@ Dates are in Paris time. Each milestone ends with: all tests green, PLAN.md boxe
 - [x] Opening block: up to 3 holdings with a material change, ordered by weight, computed by code from the cards (`lib/lead.ts`). Handles 0, 1 or 2 changes, missing weights, long names, phone width, dark mode.
 - [x] Feed hierarchy: type scale, spacing, status groups, self-hosted font. Setup folds away once a run starts.
 
+### M6c: Earnings call audio (Mon Nov 2, added, GO after the feasibility test in NOTES.md)
+
+- [x] Official recording, API docs and test call, timestamps checked against the company's captions, player seek checked.
+- [x] Transcript as a document type with timestamps, through the existing triage, schema, verifier, numbers check, retry and guardrail.
+- [x] Recorded run in the replay, quotes only, labelled with its date. Unit and Playwright coverage.
+
 ### M7: Freeze (Tue Nov 3, 21:00 Paris)
 - [ ] Feature freeze. Only bug fixes after this point.
 - [ ] Final fixture recording, tag `v1.0-hackathon`.
@@ -423,7 +433,8 @@ Dates are in Paris time. Each milestone ends with: all tests green, PLAN.md boxe
 4. Every claim shows at least one source chip; click the first chip of the largest holding; expect the source panel with a `mark` element whose text equals the quote after normalization.
 5. Type "Should I sell?" in a follow-up box; expect the refusal text and no network call to `/api/ask` model path (assert via a request counter).
 6. Toggle dark mode, viewport 390x844: no horizontal scroll.
-7. Opening block: 3 rows in weight order, a row leads to its card and to its source; rewritten cards cover 0, 1 and 2 material changes, a missing weight and a long unbroken name at phone width.
+7. Earnings call: chips read as timestamps, the panel carries the label, the player points at the moment; with the recording unreachable, a link with the time remains.
+8. Opening block: 3 rows in weight order, a row leads to its card and to its source; rewritten cards cover 0, 1 and 2 material changes, a missing weight and a long unbroken name at phone width.
 
 **Live check (manual script, costs money, not in CI):** `npm run analyze:sample -- --live` prints per-holding status, verified quote count, retries, cost, and the total.
 
