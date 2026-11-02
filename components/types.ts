@@ -23,6 +23,7 @@ export interface PortfolioResponse {
   errors: { row: number; message: string }[];
   estimateUsd: number;
   recordedAt: string | null;
+  additions?: { holdingId: string; recordedAt: string; note: string }[];
   passcodeRequired: boolean;
   holdings: PortfolioRow[];
 }

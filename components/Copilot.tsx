@@ -276,7 +276,7 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
               {portfolio.mode === "live" && `Live run on ${portfolio.model}, estimated cost about $${portfolio.estimateUsd.toFixed(2)} (hard cap $3).`}
               {portfolio.mode === "mock" && "Mock mode: a deterministic stand-in replaces the model, no cost."}
-              {portfolio.mode === "replay" && `Recorded run${portfolio.recordedAt ? ` from ${portfolio.recordedAt.slice(0, 10)}` : ""} on ${portfolio.model}: instant, no model call.`}
+              {portfolio.mode === "replay" && `Recorded run${portfolio.recordedAt ? ` from ${portfolio.recordedAt.slice(0, 10)}` : ""} on ${portfolio.model}: instant, no model call.${portfolio.additions?.length ? ` ${portfolio.additions.map((a) => a.note).join(" ")}` : ""}`}
             </p>
           </div>
         </section>

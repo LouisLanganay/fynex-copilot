@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import type { Card, CardQuote } from "@/lib/card";
+import { formatTimestamp } from "@/lib/extract/audio";
 import { isAdviceRequest, REFUSAL } from "@/lib/guardrail/advice";
 import { formatWeight } from "@/lib/lead";
+import { ASR_MODEL } from "@/lib/llm/prices";
 
 const STATUS: Record<string, { label: string; cls: string }> = {
   material_change: { label: "Material change", cls: "font-medium text-neutral-900 dark:text-neutral-100" },
@@ -91,9 +93,17 @@ export default function HoldingCard({
       {doc && (
         <p className="mt-1.5 text-xs leading-relaxed text-neutral-500 dark:text-neutral-400 [overflow-wrap:anywhere]">
           {doc.source}, {doc.title}, {doc.date}
-          {card.documents[1] ? ` (compared with ${card.documents[1].date})` : ""}
+          {card.documents[1] ? (card.documents[1].date === doc.date ? ` (read with the ${card.documents[1].source} release of the same day)` : ` (compared with ${card.documents[1].date})`) : ""}
         </p>
       )}
+      {card.documents.filter((d) => d.contentType === "audio").map((d) => (
+        <p key={d.id} data-testid="transcript-label" className="mt-1.5 text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
+          Automatic transcript of the call, it may contain errors.{" "}
+          <a href={d.alternateUrl ?? d.url} target="_blank" rel="noreferrer" className="underline underline-offset-2">
+            Original recording
+          </a>
+        </p>
+      ))}
       {card.note && <p className="mt-2 text-xs text-amber-700 dark:text-amber-300">{card.note}</p>}
 
       {card.claims.length > 0 && (
@@ -116,7 +126,7 @@ export default function HoldingCard({
                         title={q.text}
                         className={`rounded border px-1.5 py-0.5 font-mono text-[11px] ${active ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-100 dark:bg-neutral-100 dark:text-neutral-900" : "border-neutral-300 hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-900"}`}
                       >
-                        [{idx}]{q.page ? ` p.${q.page}` : ""}
+                        [{idx}]{typeof q.timeMs === "number" ? ` ${formatTimestamp(q.timeMs)}` : q.page ? ` p.${q.page}` : ""}
                       </button>
                     );
                   })}
@@ -133,6 +143,7 @@ export default function HoldingCard({
       {!empty && (
         <p className="mt-3 text-[11px] leading-relaxed text-neutral-500 dark:text-neutral-400" data-testid="card-footer">
           {card.model}, {(card.usage.prompt + card.usage.completion).toLocaleString("en-US")} tokens ({card.usage.reasoning.toLocaleString("en-US")} reasoning), ${card.costUsd.toFixed(4)}
+          {card.transcriptionUsd ? ` (of which $${card.transcriptionUsd.toFixed(4)} speech to text on ${ASR_MODEL})` : ""}
           {card.state === "ok" ? `, all ${card.quotesVerified} quotes verified` : ""}
           {card.rejections.length ? `, ${card.rejections.length} rejected and retried` : ""}
           {card.triage?.method === "model" ? `, triage by tool calls (${card.triage.toolCalls.length})` : ""}

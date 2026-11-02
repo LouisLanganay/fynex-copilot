@@ -1,6 +1,7 @@
 "use client";
 
 import type { Card, CardQuote } from "@/lib/card";
+import { formatTimestamp } from "@/lib/extract/audio";
 import { formatWeight, LEAD_NONE, LEAD_NOTE, leadChanges, leadSummary, leadTitle } from "@/lib/lead";
 
 /** Opening block of the results: the largest lines with a material change. No model call. */
@@ -48,7 +49,7 @@ export default function LeadChanges({ cards, onCard, onSource }: { cards: Card[]
                   data-testid="lead-source"
                   className="col-start-2 mt-2 justify-self-start whitespace-nowrap rounded border border-neutral-300 px-2 py-1 text-xs hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-900 sm:col-start-3 sm:mt-0"
                 >
-                  Source{quote.page ? ` p.${quote.page}` : ""}
+                  Source{typeof quote.timeMs === "number" ? ` ${formatTimestamp(quote.timeMs)}` : quote.page ? ` p.${quote.page}` : ""}
                 </button>
               )}
             </li>

@@ -79,6 +79,45 @@ test("sample portfolio: upload, cards, source panel, refusal, mobile dark mode",
   expect(overflow).toBeLessThanOrEqual(0);
 });
 
+const MSFT = 'article[data-holding="US5949181045"]';
+
+async function openCallChip(page: Page) {
+  await page.goto("/");
+  await page.getByTestId("try-sample").click();
+  await page.getByTestId("analyze").click();
+  await expect(page.getByTestId("card")).toHaveCount(12, { timeout: 30_000 });
+  const card = page.locator(MSFT);
+  await expect(card.getByTestId("transcript-label")).toContainText("Automatic transcript");
+  await expect(card.getByRole("link", { name: "Original recording" })).toHaveAttribute("href", /microsoft\.com\/en-us\/investor/);
+  // Filings keep their pages; the call reads as a timestamp.
+  const chip = card.locator("[data-testid=source-chip]", { hasText: /\d+:\d\d$/ }).first();
+  const label = (await chip.textContent())!.match(/(\d+):(\d\d)$/)!;
+  const quote = (await chip.getAttribute("title")) ?? "";
+  await chip.click();
+  await expect(page.getByTestId("quote-mark")).toHaveText(quote);
+  await expect(page.getByTestId("source-panel")).toContainText(`at ${label[0]}`);
+  await expect(page.getByTestId("transcript-note")).toContainText("may contain errors");
+  return { seconds: Number(label[1]) * 60 + Number(label[2]), label: label[0] };
+}
+
+test("earnings call: a chip reads as a timestamp and the panel opens the recording there", async ({ page }) => {
+  // Hold the media request: no network in the test, and the player stays in place.
+  await page.route("**/*.mp4*", () => {});
+  const { seconds, label } = await openCallChip(page);
+  const src = await page.getByTestId("call-audio").getAttribute("src");
+  expect(src).toMatch(new RegExp(`\\.mp4\\?.*#t=${seconds}$`));
+  const link = page.getByRole("link", { name: `Open original recording at ${label}` });
+  await expect(link).toHaveAttribute("href", new RegExp(`#t=${seconds}$`));
+  await expect(page.getByRole("link", { name: "Company's page for the call" })).toBeVisible();
+});
+
+test("earnings call: an unreachable recording leaves the link out with the timestamp", async ({ page }) => {
+  await page.route("**/*.mp4*", (r) => r.abort());
+  const { label } = await openCallChip(page);
+  await expect(page.getByTestId("call-audio-failed")).toContainText(label);
+  await expect(page.getByRole("link", { name: `Open original recording at ${label}` })).toBeVisible();
+});
+
 /** Replays the recording with the cards rewritten, to reach states the sample does not have. */
 async function withCards(page: Page, rewrite: (card: Record<string, unknown>, index: number) => Record<string, unknown>) {
   const seen = new Map<string, number>();
