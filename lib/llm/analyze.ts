@@ -118,10 +118,10 @@ export async function analyzeDocuments(
   docs: SourceDocument[],
   budget?: RunBudget,
 ): Promise<AnalysisResult> {
-  const promptDocs: PromptDocument[] = docs.map((d, i) => ({ promptId: `D${i + 1}`, title: d.title, date: d.date, source: d.source, text: d.text }));
+  const promptDocs: PromptDocument[] = docs.map((d, i) => ({ promptId: `D${i + 1}`, title: d.title, date: d.date, source: d.source, text: d.text, transcript: d.contentType === "audio" }));
   const promptToDoc = new Map(promptDocs.map((p, i) => [p.promptId, docs[i].id]));
   // The verifier sees the same capped text as the model.
-  const verifier = new QuoteVerifier(docs.map((d) => ({ id: d.id, text: d.text, pageStarts: d.pageStarts })));
+  const verifier = new QuoteVerifier(docs.map((d) => ({ id: d.id, text: d.text, pageStarts: d.pageStarts, turns: d.turns })));
   const messages: ChatCompletionMessageParam[] = [
     { role: "system", content: ANALYSIS_SYSTEM },
     { role: "user", content: analysisUserMessage(facts, allowed, promptDocs) },

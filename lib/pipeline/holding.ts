@@ -62,6 +62,7 @@ function toCardDoc(d: SourceDocument): CardDocument {
     pages: d.pages,
     ocr: d.ocr,
     chars: d.text.length,
+    contentType: d.contentType,
   };
 }
 
@@ -116,7 +117,8 @@ export async function analyzeHolding(
   const load = async (c: CandidateDocument): Promise<SourceDocument | null> => {
     if (loaded.has(c.id)) return loaded.get(c.id)!;
     let d: SourceDocument | null = null;
-    if (o.offline) d = cacheGet<SourceDocument>("doc", c.id)?.value ?? null;
+    if (c.contentType === "audio") d = cacheGet<SourceDocument>("transcript", c.id)?.value ?? null;
+    else if (o.offline) d = cacheGet<SourceDocument>("doc", c.id)?.value ?? null;
     else {
       d = await loadDocument(c, {
         transcribe: transcriptionEnabled() && client.live ? (bytes) => transcribePdf(client, bytes, `${c.id}.pdf`, budget) : undefined,

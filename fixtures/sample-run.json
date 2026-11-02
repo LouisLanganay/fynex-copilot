@@ -1,7 +1,7 @@
 {
  "recordedAt": "2026-10-29T22:51:04.453Z",
  "model": "muse-spark-1.3",
- "totalUsd": 0.6667825500000001,
+ "totalUsd": 0.8446865,
  "summary": {
   "holdings": [
    {
@@ -249,12 +249,12 @@
    "claims": [
     {
      "category": "results",
-     "statement": "Revenue reached \u20ac57.1 billion in the first nine months of 2026, with organic growth of 2%.",
+     "statement": "Revenue reached €57.1 billion in the first nine months of 2026, with organic growth of 2%.",
      "whyItMatters": "Sales growth shows demand for the group's brands, which matters because this is the largest line and moves in the total depend partly on its sales.",
      "quotes": [
       {
        "documentId": "37d83cf556e91cc6",
-       "text": "revenue of \u20ac57.1 billion in the first nine months of 2026.",
+       "text": "revenue of €57.1 billion in the first nine months of 2026.",
        "start": 166,
        "end": 224,
        "page": 1
@@ -319,12 +319,12 @@
     },
     {
      "category": "results",
-     "statement": "First-half profit from recurring operations was \u20ac8.7 billion at a margin of 22.5%, with Group share of net profit at \u20ac5.7 billion.",
+     "statement": "First-half profit from recurring operations was €8.7 billion at a margin of 22.5%, with Group share of net profit at €5.7 billion.",
      "whyItMatters": "Profit shows what remained after sales costs and expenses, which matters for a large line because earnings support the group's financial structure.",
      "quotes": [
       {
        "documentId": "843d50b70ee6f1a1",
-       "text": "Profit from recurring operations for the first half of 2026 came to \u20ac8.7 billion",
+       "text": "Profit from recurring operations for the first half of 2026 came to €8.7 billion",
        "start": 951,
        "end": 1031,
        "page": 1
@@ -338,7 +338,7 @@
       },
       {
        "documentId": "843d50b70ee6f1a1",
-       "text": "The Group share of net profit amounted to \u20ac5.7 billion",
+       "text": "The Group share of net profit amounted to €5.7 billion",
        "start": 1094,
        "end": 1148,
        "page": 1
@@ -347,19 +347,19 @@
     },
     {
      "category": "capital",
-     "statement": "An interim dividend of \u20ac5.50 will be paid on December 3, 2026, and the group progressed sales of Marc Jacobs and DFS businesses in Greater China.",
+     "statement": "An interim dividend of €5.50 will be paid on December 3, 2026, and the group progressed sales of Marc Jacobs and DFS businesses in Greater China.",
      "whyItMatters": "Cash distributions and disposals change the shape of the group, which matters because they affect what the holder is exposed to through this line.",
      "quotes": [
       {
        "documentId": "843d50b70ee6f1a1",
-       "text": "An interim dividend of \u20ac5.50 will be paid on December 3, 2026.",
+       "text": "An interim dividend of €5.50 will be paid on December 3, 2026.",
        "start": 10287,
        "end": 10349,
        "page": 4
       },
       {
        "documentId": "843d50b70ee6f1a1",
-       "text": "An agreement was entered into with WHP Global for LVMH\u2019s sale of Marc Jacobs.",
+       "text": "An agreement was entered into with WHP Global for LVMH’s sale of Marc Jacobs.",
        "start": 6759,
        "end": 6836,
        "page": 3
@@ -493,12 +493,12 @@
     },
     {
      "category": "capital",
-     "statement": "The company confirmed a third interim dividend of \u20ac0.90/share, aims to return 40% of cash flow to shareholders, and authorized $2.5 billion buybacks for cancellation.",
+     "statement": "The company confirmed a third interim dividend of €0.90/share, aims to return 40% of cash flow to shareholders, and authorized $2.5 billion buybacks for cancellation.",
      "whyItMatters": "Dividends and buybacks for cancellation, which reduce share count, are the direct cash returns described for this line.",
      "quotes": [
       {
        "documentId": "6887696985903b52",
-       "text": "the Board confirmed a third interim dividend of \u20ac0.90/share for fiscal year 2026, up 5.9% compared to 2025",
+       "text": "the Board confirmed a third interim dividend of €0.90/share for fiscal year 2026, up 5.9% compared to 2025",
        "start": 5059,
        "end": 5165,
        "page": 2
@@ -751,19 +751,19 @@
    "claims": [
     {
      "category": "results",
-     "statement": "Quarterly revenues were \u20ac11.5 billion, up +17% organic, a record high for any quarter.",
+     "statement": "Quarterly revenues were €11.5 billion, up +17% organic, a record high for any quarter.",
      "whyItMatters": "For a holder, this describes sales momentum in the business behind this line, with organic growth excluding currency effects and acquisitions.",
      "quotes": [
       {
        "documentId": "359754c047bbe913",
-       "text": "Revenues up +17% organic to \u20ac11.5 billion, a record high for any quarter",
+       "text": "Revenues up +17% organic to €11.5 billion, a record high for any quarter",
        "start": 180,
        "end": 252,
        "page": 1
       },
       {
        "documentId": "359754c047bbe913",
-       "text": "2026 Q3 revenues were \u20ac11,460 million, up +16.9% organic and up +17.9% on a reported basis.",
+       "text": "2026 Q3 revenues were €11,460 million, up +16.9% organic and up +17.9% on a reported basis.",
        "start": 2715,
        "end": 2806,
        "page": 2
@@ -793,12 +793,12 @@
     },
     {
      "category": "capital",
-     "statement": "Schneider issued a \u20ac 6.0 billion bond to help fund the PTC acquisition, following a \u20ac6.0 billion capital increase.",
+     "statement": "Schneider issued a € 6.0 billion bond to help fund the PTC acquisition, following a €6.0 billion capital increase.",
      "whyItMatters": "For a holder, this explains how the acquisition is being funded with new debt and new shares, which affects the financial structure behind this line.",
      "quotes": [
       {
        "documentId": "f571f1c9f7654e59",
-       "text": "Successful issue of a \u20ac 6.0 billion bond as part of the",
+       "text": "Successful issue of a € 6.0 billion bond as part of the",
        "start": 302,
        "end": 357,
        "page": 1
@@ -812,7 +812,7 @@
       },
       {
        "documentId": "f571f1c9f7654e59",
-       "text": "\u20ac6.0 billion capital increase through an Accelerated Bookbuild Offering (ABO), without shareholders",
+       "text": "€6.0 billion capital increase through an Accelerated Bookbuild Offering (ABO), without shareholders",
        "start": 915,
        "end": 1014,
        "page": 1
@@ -825,7 +825,7 @@
     {
      "id": "f571f1c9f7654e59",
      "source": "AMF",
-     "title": "Successful issue of a \u20ac 6.0 billion bond as part of the financing of the PTC acquisition",
+     "title": "Successful issue of a € 6.0 billion bond as part of the financing of the PTC acquisition",
      "date": "2026-10-28",
      "url": "https://fr.ftp.opendatasoft.com/datadila/INFOFI/ECO/2026/10/FCECO083581_20261028.pdf",
      "alternateUrl": "https://fr.ftp.opendatasoft.com/datadila/INFOFI/ECO/2026/10/FCECO083582_20261028.pdf",
@@ -851,7 +851,7 @@
    ],
    "triage": {
     "method": "model",
-    "reason": "Primary is most recent material corporate event: \u20ac6.0bn bond issue for PTC acquisition (2026-10-28). Comparison is previous results release: Q3 2026 Revenues.",
+    "reason": "Primary is most recent material corporate event: €6.0bn bond issue for PTC acquisition (2026-10-28). Comparison is previous results release: Q3 2026 Revenues.",
     "toolCalls": [
      "list_candidate_documents",
      "select_documents"
@@ -885,109 +885,141 @@
    "rank": 5,
    "state": "ok",
    "status": "material_change",
-   "headline": "Microsoft reported higher revenue and profit led by cloud growth and returned cash to shareholders.",
+   "headline": "Microsoft reported higher first-quarter revenue and profit led by cloud and Azure growth.",
    "claims": [
     {
      "category": "results",
-     "statement": "In the latest quarter, revenue was $92.3 billion and increased 19%, while diluted earnings per share was $4.92 and increased 32% on a GAAP basis.",
-     "whyItMatters": "For a holder with 8.9% in this line, these headline sales and profit figures describe the scale of growth in the period.",
+     "statement": "Microsoft reported first-quarter revenue of $92.3 billion, up 19%, operating income of $45.9 billion, up 21%, and non-GAAP diluted earnings per share of $4.89, up 18%.",
+     "whyItMatters": "This shows the overall scale and profitability reported for the quarter, which is the base for earnings and cash distributions for a holder.",
      "quotes": [
       {
        "documentId": "8afeb5cf39b1733c",
        "text": "Revenue was $92.3 billion and increased 19%",
        "start": 288,
        "end": 331,
-       "page": null
+       "page": null,
+       "timeMs": null
+      },
+      {
+       "documentId": "8afeb5cf39b1733c",
+       "text": "Operating income was $45.9 billion and increased 21% (up 22% in constant currency)",
+       "start": 335,
+       "end": 417,
+       "page": null,
+       "timeMs": null
       },
       {
        "documentId": "8afeb5cf39b1733c",
        "text": "Diluted earnings per share was $4.92 and increased 32% on a GAAP basis, and was $4.89 and increased 18% (up 19% in constant currency) on a non-GAAP basis",
        "start": 578,
        "end": 731,
-       "page": null
+       "page": null,
+       "timeMs": null
       }
      ]
     },
     {
      "category": "results",
-     "statement": "Microsoft Cloud revenue was $63.9 billion with growth accelerating to 30%, and Azure revenue increased 48%, showing cloud strength.",
-     "whyItMatters": "Cloud, which includes Azure, is presented as the growth driver, and constant currency means excluding currency moves, helping interpret underlying performance for this holding.",
+     "statement": "Microsoft Cloud revenue was $63.9 billion, up 30%, Azure revenue was up 48%, and remaining performance obligation, or contracted future revenue, was up 73% to $677 billion.",
+     "whyItMatters": "Cloud and Azure are described as the main growth engine, and the backlog figure shows future work already contracted, which explains where growth came from.",
      "quotes": [
       {
        "documentId": "8afeb5cf39b1733c",
-       "text": "We delivered a strong start to the fiscal year with Microsoft Cloud revenue of $63.9 billion, with growth accelerating to 30% (up 31% in constant currency) year-over-year",
-       "start": 1259,
-       "end": 1429,
-       "page": null
+       "text": "Microsoft Cloud revenue was $63.9 billion and increased 30% (up 31% in constant currency)",
+       "start": 2840,
+       "end": 2929,
+       "page": null,
+       "timeMs": null
       },
       {
        "documentId": "8afeb5cf39b1733c",
        "text": "Azure revenue increased 48%",
        "start": 2933,
        "end": 2960,
-       "page": null
+       "page": null,
+       "timeMs": null
+      },
+      {
+       "documentId": "8afeb5cf39b1733c",
+       "text": "Commercial remaining performance obligation increased 73% to $677 billion",
+       "start": 2763,
+       "end": 2836,
+       "page": null,
+       "timeMs": null
       }
      ]
     },
     {
      "category": "capital",
-     "statement": "Microsoft returned $10.2 billion to shareholders in dividends and share repurchases in the first quarter of fiscal year 2027.",
-     "whyItMatters": "Cash returns describe how capital was distributed during the quarter, which is relevant context for a holder with this position size.",
+     "statement": "Capital expenditures were $45.2 billion, free cash flow was $18.6 billion, and the company returned $10.2 billion through dividends and share repurchases.",
+     "whyItMatters": "Heavy spending on data centers and chips lowers cash left over, while dividends and buybacks are the cash paid back to holders in the quarter.",
      "quotes": [
+      {
+       "documentId": "a790d54cd21d1a38",
+       "text": "Capital expenditures were $45.2 billion as some third party capacity deliveries we expected in Q1 were delayed",
+       "start": 0,
+       "end": 110,
+       "page": null,
+       "timeMs": 1157238
+      },
+      {
+       "documentId": "a790d54cd21d1a38",
+       "text": "and free cash flow was $18.6 billion reflecting higher capex expenditures.",
+       "start": 112,
+       "end": 186,
+       "page": null,
+       "timeMs": 1203670
+      },
       {
        "documentId": "8afeb5cf39b1733c",
        "text": "Microsoft returned $10.2 billion to shareholders in the form of dividends and share repurchases in the first quarter of fiscal year 2027.",
        "start": 3682,
        "end": 3819,
-       "page": null
+       "page": null,
+       "timeMs": null
       }
      ]
     },
     {
-     "category": "strategy",
-     "statement": "Revenue in Agents and Infra was $76.8 billion and increased 25%, while Devices and Consumer was $15.5 billion and decreased 3%.",
-     "whyItMatters": "This split shows where growth came from and which part shrank, helping explain what drives results for this holding.",
+     "category": "guidance",
+     "statement": "The company said on the call it expects Azure revenue growth of 49 to 50% in constant currency, which excludes currency effects, and second-quarter capex over $50 billion with calendar-year spend of about $170 billion.",
+     "whyItMatters": "The outlook frames expected demand for cloud capacity and the scale of planned investment, which affects costs and capacity available to meet demand.",
      "quotes": [
       {
-       "documentId": "8afeb5cf39b1733c",
-       "text": "Revenue in Agents and Infra was $76.8 billion and increased 25%, with the following business highlights:",
-       "start": 2655,
-       "end": 2759,
-       "page": null
+       "documentId": "a790d54cd21d1a38",
+       "text": "In Azure, we expect revenue growth of 49 to 50% in constant currency with continued efficiency gains across our CPU and GPU fleet",
+       "start": 188,
+       "end": 317,
+       "page": null,
+       "timeMs": 1634995
       },
       {
-       "documentId": "8afeb5cf39b1733c",
-       "text": "Revenue in Devices and Consumer was $15.5 billion and decreased 3%, with the following business highlights:",
-       "start": 3359,
-       "end": 3466,
-       "page": null
-      }
-     ]
-    },
-    {
-     "category": "other",
-     "statement": "Reported GAAP profit includes OpenAI investment effects, while non-GAAP excludes them, with non-GAAP profit lower than GAAP in the quarter.",
-     "whyItMatters": "This distinction helps a holder see how much of the reported profit came from core operations versus investment gains in the period.",
-     "quotes": [
-      {
-       "documentId": "8afeb5cf39b1733c",
-       "text": "Non-GAAP results exclude the impact from investments in OpenAI, explained in the Non-GAAP Definition section below",
-       "start": 735,
-       "end": 849,
-       "page": null
-      },
-      {
-       "documentId": "8afeb5cf39b1733c",
-       "text": "In the first quarter of fiscal year 2027, net income and diluted earnings per share were impacted by net gains from investments in OpenAI, which resulted in an increase in net income and diluted earnings per share of $207 million and $0.03, respectively.",
-       "start": 5399,
-       "end": 5653,
-       "page": null
+       "documentId": "a790d54cd21d1a38",
+       "text": "In Q2, we we expect capex spend will be over $50 billion therefore for the calendar calendar year spend should be approximately $170 billion due to the 3P capacity delays noted earlier",
+       "start": 319,
+       "end": 503,
+       "page": null,
+       "timeMs": 1861205
       }
      ]
     }
    ],
-   "portfolioNote": "This holding represents 8.9% of the portfolio at rank 5 of 12 with value EUR 2102 within total EUR 23754.",
+   "portfolioNote": "Microsoft is 8.9% of the portfolio, ranked 5 of 12 lines, with a cost value of 2102 out of 23754 total.",
    "documents": [
+    {
+     "id": "a790d54cd21d1a38",
+     "source": "Earnings call",
+     "title": "Microsoft FY27 Q1 earnings call",
+     "date": "2026-10-28",
+     "url": "https://samediusprodwestus2.blob.core.windows.net/video-7536455/6f6901e80d/VOD001.mp4?sv=2025-01-05&se=2031-10-28T23%3A32%3A06Z&sr=b&sp=r&sig=2b6d6hRr%2FfHfH0rRMrJDYYdReyf6KktsLfnoy6rmAe8%3D",
+     "alternateUrl": "https://www.microsoft.com/en-us/investor/events/fy-2027/earnings-fy-2027-q1",
+     "formOrSubtype": "Earnings call, automatic transcript",
+     "language": "en",
+     "pages": 1,
+     "ocr": false,
+     "chars": 52159,
+     "contentType": "audio"
+    },
     {
      "id": "8afeb5cf39b1733c",
      "source": "SEC EDGAR",
@@ -999,25 +1031,13 @@
      "language": "en",
      "pages": 1,
      "ocr": false,
-     "chars": 20670
-    },
-    {
-     "id": "c98dbff588e3b9db",
-     "source": "SEC EDGAR",
-     "title": "Microsoft Corp.: results release (8-K item 2.02, 2026-07-29)",
-     "date": "2026-07-29",
-     "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm",
-     "alternateUrl": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/0001193125-26-323632-index.html",
-     "formOrSubtype": "8-K 2.02,9.01",
-     "language": "en",
-     "pages": 1,
-     "ocr": false,
-     "chars": 24629
+     "chars": 20670,
+     "contentType": "html"
     }
    ],
    "triage": {
     "method": "model",
-    "reason": "Primary is most recent results release (Q1 FY27, 2026-10-28) with revenue, operating income, guidance context. Comparison is prior results release (2026-07-29).",
+    "reason": "Most recent results (FY27 Q1) released 2026-10-28 with same-date earnings call transcript; per rule pick call as primary and same-date 8-K results release as comparison. Other 10-28 filings are segment recast/10-Q supporting same quarter.",
     "toolCalls": [
      "list_candidate_documents",
      "read_document_start",
@@ -1027,17 +1047,18 @@
    },
    "attempts": 1,
    "rejections": [],
-   "quotesVerified": 9,
+   "quotesVerified": 11,
    "model": "muse-spark-1.3",
    "usage": {
-    "prompt": 18292,
-    "cached": 2771,
-    "completion": 6541,
-    "reasoning": 5372
+    "prompt": 22270,
+    "cached": 2259,
+    "completion": 7510,
+    "reasoning": 6314
    },
-   "costUsd": 0.04761615,
-   "generatedAt": "2026-10-29T22:49:03.974Z",
-   "cachedFrom": "2026-10-29T22:49:03.975Z"
+   "costUsd": 0.2255201,
+   "generatedAt": "2026-11-02T18:08:12.401Z",
+   "transcriptionUsd": 0.16824999999999998,
+   "recordedAt": "2026-11-02T18:08:12.403Z"
   },
   {
    "holdingId": "NL0010273215",
@@ -1051,19 +1072,19 @@
    "claims": [
     {
      "category": "results",
-     "statement": "In the third quarter, total net sales were \u20ac11.7 billion with gross margin of 57.5% and net income of \u20ac5.0 billion, described as record sales.",
+     "statement": "In the third quarter, total net sales were €11.7 billion with gross margin of 57.5% and net income of €5.0 billion, described as record sales.",
      "whyItMatters": "For a holder where this line is 8.2% of the portfolio, these reported sales and profit figures show how the business performed in the quarter. Gross margin means profit after production costs as a share of sales.",
      "quotes": [
       {
        "documentId": "9caba7c9542b6f02",
-       "text": "\u2022Q3 total net sales of \u20ac11.7 billion, gross margin of 57.5%, net income of \u20ac5.0 billion",
+       "text": "•Q3 total net sales of €11.7 billion, gross margin of 57.5%, net income of €5.0 billion",
        "start": 386,
        "end": 473,
        "page": null
       },
       {
        "documentId": "9caba7c9542b6f02",
-       "text": "In the third quarter we reported a record total net sales of \u20ac11.7 billion, towards the high end of our guidance, reflecting the strong execution of our ramp-up.",
+       "text": "In the third quarter we reported a record total net sales of €11.7 billion, towards the high end of our guidance, reflecting the strong execution of our ramp-up.",
        "start": 1362,
        "end": 1523,
        "page": null
@@ -1072,19 +1093,19 @@
     },
     {
      "category": "guidance",
-     "statement": "The company expects fourth-quarter sales between \u20ac14.2 billion and \u20ac15.2 billion with gross margin around 57%, and full-year 2026 sales between \u20ac44 billion and \u20ac45 billion with gross margin around 56%.",
+     "statement": "The company expects fourth-quarter sales between €14.2 billion and €15.2 billion with gross margin around 57%, and full-year 2026 sales between €44 billion and €45 billion with gross margin around 56%.",
      "whyItMatters": "For a holder with this line at 8.2%, the published outlook frames what sales and margin the company anticipates for the rest of 2026.",
      "quotes": [
       {
        "documentId": "9caba7c9542b6f02",
-       "text": "\u2022ASML expects Q4 2026 total net sales between \u20ac14.2 billion and \u20ac15.2 billion, and a gross margin around 57%",
+       "text": "•ASML expects Q4 2026 total net sales between €14.2 billion and €15.2 billion, and a gross margin around 57%",
        "start": 475,
        "end": 583,
        "page": null
       },
       {
        "documentId": "9caba7c9542b6f02",
-       "text": "\u2022Full-year 2026 total net sales expected to be between \u20ac44 billion and \u20ac45 billion, with a gross margin around 56%",
+       "text": "•Full-year 2026 total net sales expected to be between €44 billion and €45 billion, with a gross margin around 56%",
        "start": 585,
        "end": 699,
        "page": null
@@ -1093,19 +1114,19 @@
     },
     {
      "category": "capital",
-     "statement": "In the third quarter the company purchased around \u20ac4.1 billion of shares under the 2026-2028 buyback program, and declared an interim dividend of \u20ac1.88 per share payable on November 4, 2026.",
+     "statement": "In the third quarter the company purchased around €4.1 billion of shares under the 2026-2028 buyback program, and declared an interim dividend of €1.88 per share payable on November 4, 2026.",
      "whyItMatters": "For a holder with 8.2% exposure, buybacks and dividends describe cash returned to shareholders as stated in the release.",
      "quotes": [
       {
        "documentId": "9caba7c9542b6f02",
-       "text": "In the third quarter, we purchased around \u20ac4.1 billion worth of shares under the current 2026\u20132028 share buyback program.",
+       "text": "In the third quarter, we purchased around €4.1 billion worth of shares under the current 2026–2028 share buyback program.",
        "start": 2942,
        "end": 3063,
        "page": null
       },
       {
        "documentId": "9caba7c9542b6f02",
-       "text": "An interim dividend over 2026 of \u20ac1.88 per ordinary share will be made payable on November 4, 2026.",
+       "text": "An interim dividend over 2026 of €1.88 per ordinary share will be made payable on November 4, 2026.",
        "start": 3065,
        "end": 3164,
        "page": null
@@ -1260,7 +1281,7 @@
      "quotes": [
       {
        "documentId": "4bf639cba84c3354",
-       "text": "Apple\u2019s board of directors has declared a cash dividend of $0.27 per share of the Company\u2019s common stock.",
+       "text": "Apple’s board of directors has declared a cash dividend of $0.27 per share of the Company’s common stock.",
        "start": 1351,
        "end": 1456,
        "page": null
@@ -1288,7 +1309,7 @@
       },
       {
        "documentId": "5c93994347d1959e",
-       "text": "The Company expects these trends to intensify, which may materially negatively impact the Company\u2019s revenue, costs, gross margin, results of operations and financial condition.",
+       "text": "The Company expects these trends to intensify, which may materially negatively impact the Company’s revenue, costs, gross margin, results of operations and financial condition.",
        "start": 35572,
        "end": 35748,
        "page": null
@@ -1359,19 +1380,19 @@
    "claims": [
     {
      "category": "results",
-     "statement": "Third-quarter revenue was \u20ac9,003 million, up 14.7%, while nine-month revenue reached \u20ac26,574 million, up 17.5%.",
+     "statement": "Third-quarter revenue was €9,003 million, up 14.7%, while nine-month revenue reached €26,574 million, up 17.5%.",
      "whyItMatters": "This shows sales growth continued into the third quarter, which is the business background for this 8.1% portfolio line.",
      "quotes": [
       {
        "documentId": "b0c1699866fa7a7a",
-       "text": "Q3 2026 revenue: \u20ac9,003 million (+14.7%)",
+       "text": "Q3 2026 revenue: €9,003 million (+14.7%)",
        "start": 207,
        "end": 247,
        "page": 1
       },
       {
        "documentId": "b0c1699866fa7a7a",
-       "text": "9m 2026 revenue: \u20ac26,574 million (+17.5%)",
+       "text": "9m 2026 revenue: €26,574 million (+17.5%)",
        "start": 250,
        "end": 291,
        "page": 1
@@ -1380,7 +1401,7 @@
     },
     {
      "category": "guidance",
-     "statement": "Safran confirmed its full-year 2026 outlook after the July increase, pointing to revenue growth up mid-teens, recurring operating income of \u20ac6.4 to \u20ac6.5 billion and Free Cash Flow of \u20ac4.7 to \u20ac4.9 billion.",
+     "statement": "Safran confirmed its full-year 2026 outlook after the July increase, pointing to revenue growth up mid-teens, recurring operating income of €6.4 to €6.5 billion and Free Cash Flow of €4.7 to €4.9 billion.",
      "whyItMatters": "This confirms the targets for revenue, profit and cash generation for the rest of 2026 described in the update.",
      "quotes": [
       {
@@ -1392,14 +1413,14 @@
       },
       {
        "documentId": "b0c1699866fa7a7a",
-       "text": "Recurring operating income: \u20ac6.4 to \u20ac6.5 billion;",
+       "text": "Recurring operating income: €6.4 to €6.5 billion;",
        "start": 6593,
        "end": 6642,
        "page": 3
       },
       {
        "documentId": "b0c1699866fa7a7a",
-       "text": "Free Cash Flow: \u20ac4.7 to \u20ac4.9 billion, including an estimated ~\u20ac500 million negative impact from",
+       "text": "Free Cash Flow: €4.7 to €4.9 billion, including an estimated ~€500 million negative impact from",
        "start": 6645,
        "end": 6740,
        "page": 3
@@ -1408,19 +1429,19 @@
     },
     {
      "category": "results",
-     "statement": "First-half revenue was \u20ac17,571 million, up by 19.0%, with recurring operating income of \u20ac3,237 million, up 29.0%, at 18.4% of sales.",
+     "statement": "First-half revenue was €17,571 million, up by 19.0%, with recurring operating income of €3,237 million, up 29.0%, at 18.4% of sales.",
      "whyItMatters": "This explains that first-half profit growth came with an 18.4% margin, giving context for the higher full-year targets.",
      "quotes": [
       {
        "documentId": "f9c9e7347ec98baf",
-       "text": "H1 2026 revenue stood at \u20ac17,571 million, up by 19.0% compared to H1 2025 (+20.2% on an",
+       "text": "H1 2026 revenue stood at €17,571 million, up by 19.0% compared to H1 2025 (+20.2% on an",
        "start": 1859,
        "end": 1946,
        "page": 2
       },
       {
        "documentId": "f9c9e7347ec98baf",
-       "text": "Recurring operating income: \u20ac3,237 million (+29.0%), 18.4% of sales",
+       "text": "Recurring operating income: €3,237 million (+29.0%), 18.4% of sales",
        "start": 230,
        "end": 297,
        "page": 1
@@ -1436,26 +1457,26 @@
     },
     {
      "category": "capital",
-     "statement": "Safran launched a new \u20ac375 million tranche under its \u20ac5 billion repurchase program, with roughly 4 million shares for a total of \u20ac1.25 billion scheduled for cancellation.",
+     "statement": "Safran launched a new €375 million tranche under its €5 billion repurchase program, with roughly 4 million shares for a total of €1.25 billion scheduled for cancellation.",
      "whyItMatters": "A cancellation reduces the share count used in per-share calculations, which is relevant when following this 8 of 12 position.",
      "quotes": [
       {
        "documentId": "b0c1699866fa7a7a",
-       "text": "As part of the \u20ac5 billion share repurchase program for cancellation",
+       "text": "As part of the €5 billion share repurchase program for cancellation",
        "start": 5459,
        "end": 5526,
        "page": 3
       },
       {
        "documentId": "b0c1699866fa7a7a",
-       "text": "Safran launched a new \u20ac375",
+       "text": "Safran launched a new €375",
        "start": 5528,
        "end": 5554,
        "page": 3
       },
       {
        "documentId": "b0c1699866fa7a7a",
-       "text": "roughly 4 million shares (1% of capital share) - a total of \u20ac1.25 billion - scheduled for cancellation",
+       "text": "roughly 4 million shares (1% of capital share) - a total of €1.25 billion - scheduled for cancellation",
        "start": 5730,
        "end": 5832,
        "page": 3
@@ -1464,19 +1485,19 @@
     },
     {
      "category": "other",
-     "statement": "On September 14, 2026, Standard & Poor\u2019s raised the long-term issuer level and senior unsecured debt to \u2018A\u2019 with a stable outlook from \u2018A-\u2018.",
+     "statement": "On September 14, 2026, Standard & Poor’s raised the long-term issuer level and senior unsecured debt to ‘A’ with a stable outlook from ‘A-‘.",
      "whyItMatters": "This describes an outside view of credit strength, which is background information for holding the equity line.",
      "quotes": [
       {
        "documentId": "b0c1699866fa7a7a",
-       "text": "On September 14, 2026, Standard & Poor\u2019s revised upwards its long-term issuer credit rating on",
+       "text": "On September 14, 2026, Standard & Poor’s revised upwards its long-term issuer credit rating on",
        "start": 5222,
        "end": 5316,
        "page": 3
       },
       {
        "documentId": "b0c1699866fa7a7a",
-       "text": "Safran and its rating on the senior unsecured debt to \u2018A\u2019 with a stable outlook (from \u2018A-\u2018 with a positive",
+       "text": "Safran and its rating on the senior unsecured debt to ‘A’ with a stable outlook (from ‘A-‘ with a positive",
        "start": 5317,
        "end": 5423,
        "page": 3
@@ -1566,7 +1587,7 @@
       },
       {
        "documentId": "8a81e04ddecc1e81",
-       "text": "L\u2019Or\u00e9al delivered an exceptional third quarter as adjusted like-for-like growth accelerated to +7.7%.",
+       "text": "L’Oréal delivered an exceptional third quarter as adjusted like-for-like growth accelerated to +7.7%.",
        "start": 936,
        "end": 1037,
        "page": 1
@@ -1580,7 +1601,7 @@
      "quotes": [
       {
        "documentId": "8a81e04ddecc1e81",
-       "text": "Our performance in the first nine months gives me confidence that L\u2019Or\u00e9al will deliver another year of",
+       "text": "Our performance in the first nine months gives me confidence that L’Oréal will deliver another year of",
        "start": 1914,
        "end": 2016,
        "page": 1
@@ -1596,12 +1617,12 @@
     },
     {
      "category": "capital",
-     "statement": "The group priced a \u20ac2 billion three-part bond for general corporate purposes.",
+     "statement": "The group priced a €2 billion three-part bond for general corporate purposes.",
      "whyItMatters": "This adds debt funding for general purposes, which affects the balance sheet behind this 7.8% line.",
      "quotes": [
       {
        "documentId": "8a81e04ddecc1e81",
-       "text": "L'Or\u00e9al successfully priced a \u20ac2 billion three-part bond, the net proceeds of which will be used for",
+       "text": "L'Oréal successfully priced a €2 billion three-part bond, the net proceeds of which will be used for",
        "start": 17400,
        "end": 17500,
        "page": 7
@@ -1629,7 +1650,7 @@
       },
       {
        "documentId": "8a81e04ddecc1e81",
-       "text": "of brands that will further support the acceleration of L\u2019Or\u00e9al\u2019s business in India.",
+       "text": "of brands that will further support the acceleration of L’Oréal’s business in India.",
        "start": 16375,
        "end": 16459,
        "page": 7
@@ -1687,12 +1708,12 @@
    "claims": [
     {
      "category": "results",
-     "statement": "Revenue for the first nine months of 2026 totalled \u20ac56.0 billion, up 3.1%, after third-quarter growth of 5%.",
+     "statement": "Revenue for the first nine months of 2026 totalled €56.0 billion, up 3.1%, after third-quarter growth of 5%.",
      "whyItMatters": "For a holder with this line at 7.1% of the portfolio, group revenue shows how the overall business performed in the period described.",
      "quotes": [
       {
        "documentId": "4bca6b3274d69978",
-       "text": "In the first nine months of 2026, consolidated revenue thus totalled \u20ac56.0 billion, a 3.1% rise comprising",
+       "text": "In the first nine months of 2026, consolidated revenue thus totalled €56.0 billion, a 3.1% rise comprising",
        "start": 1917,
        "end": 2023,
        "page": 2
@@ -1708,19 +1729,19 @@
     },
     {
      "category": "results",
-     "statement": "Order intake totalled \u20ac49.6 billion at 30 September 2026, and the order book reached \u20ac75.4 billion, up 7% year on year.",
+     "statement": "Order intake totalled €49.6 billion at 30 September 2026, and the order book reached €75.4 billion, up 7% year on year.",
      "whyItMatters": "For a holder at 7.1%, the order book represents future work to be carried out and gives visibility described by the company.",
      "quotes": [
       {
        "documentId": "4bca6b3274d69978",
-       "text": "Order intake at Energy Solutions and VINCI Construction totalled \u20ac49.6 billion at 30 September 2026, a",
+       "text": "Order intake at Energy Solutions and VINCI Construction totalled €49.6 billion at 30 September 2026, a",
        "start": 2453,
        "end": 2555,
        "page": 2
       },
       {
        "documentId": "4bca6b3274d69978",
-       "text": "book reached the high level of \u20ac75.4 billion, up 7% year on year.",
+       "text": "book reached the high level of €75.4 billion, up 7% year on year.",
        "start": 2801,
        "end": 2866,
        "page": 2
@@ -1729,7 +1750,7 @@
     },
     {
      "category": "guidance",
-     "statement": "The company confirms its 2026 guidance for further growth in revenue, operating earnings and net income, excluding a possible French transport tax rise estimated at around \u20ac450 million.",
+     "statement": "The company confirms its 2026 guidance for further growth in revenue, operating earnings and net income, excluding a possible French transport tax rise estimated at around €450 million.",
      "whyItMatters": "For a holder at 7.1%, guidance describes the expected direction for revenue and earnings, while the tax measure is flagged as a possible extra charge.",
      "quotes": [
       {
@@ -1748,7 +1769,7 @@
       },
       {
        "documentId": "4bca6b3274d69978",
-       "text": "net profit attributable to owners of the parent in 2026 would be an additional charge of around \u20ac450 million,",
+       "text": "net profit attributable to owners of the parent in 2026 would be an additional charge of around €450 million,",
        "start": 15308,
        "end": 15417,
        "page": 7
@@ -1757,19 +1778,19 @@
     },
     {
      "category": "capital",
-     "statement": "The group carried out share buy-backs of \u20ac1.7 billion in the first nine months of 2026 and net financial debt amounted to \u20ac20.2 billion, down \u20ac1.2 billion year on year.",
+     "statement": "The group carried out share buy-backs of €1.7 billion in the first nine months of 2026 and net financial debt amounted to €20.2 billion, down €1.2 billion year on year.",
      "whyItMatters": "For a holder at 7.1%, buy-backs change share count and debt shows the financial position described as very solid.",
      "quotes": [
       {
        "documentId": "4bca6b3274d69978",
-       "text": "The Group carried out share buy- backs in the total amount of \u20ac1.7 billion in the first nine months of 2026",
+       "text": "The Group carried out share buy- backs in the total amount of €1.7 billion in the first nine months of 2026",
        "start": 14031,
        "end": 14138,
        "page": 6
       },
       {
        "documentId": "4bca6b3274d69978",
-       "text": "VINCI\u2019s consolidated net financial debt at 30 September 2026 amounted to\u20ac20.2 billion, down \u20ac1.2 billion",
+       "text": "VINCI’s consolidated net financial debt at 30 September 2026 amounted to€20.2 billion, down €1.2 billion",
        "start": 3117,
        "end": 3221,
        "page": 2
@@ -1778,12 +1799,12 @@
     },
     {
      "category": "results",
-     "statement": "Energy Solutions revenue growth was up 7.4% to \u20ac22.3 billion, with 70% generated outside France, and up 8.6% in the third quarter.",
+     "statement": "Energy Solutions revenue growth was up 7.4% to €22.3 billion, with 70% generated outside France, and up 8.6% in the third quarter.",
      "whyItMatters": "For a holder at 7.1%, this division drove group growth and shows reliance on business outside France.",
      "quotes": [
       {
        "documentId": "4bca6b3274d69978",
-       "text": "- revenue growth (up 7.4% to \u20ac22.3 billion, 70% of which was generated outside France), with",
+       "text": "- revenue growth (up 7.4% to €22.3 billion, 70% of which was generated outside France), with",
        "start": 7840,
        "end": 7932,
        "page": 4
@@ -1803,7 +1824,7 @@
     {
      "id": "4bca6b3274d69978",
      "source": "AMF",
-     "title": "VINCI - 9M 2026 -\u00a0FURTHER GROWTH IN REVENUE AND ORDER INTAKE",
+     "title": "VINCI - 9M 2026 - FURTHER GROWTH IN REVENUE AND ORDER INTAKE",
      "date": "2026-10-22",
      "url": "https://fr.ftp.opendatasoft.com/datadila/INFOFI/MKW/2026/10/FCMKW119395_20261022.pdf",
      "alternateUrl": "https://fr.ftp.opendatasoft.com/datadila/INFOFI/MKW/2026/10/FCMKW139395_20261022.pdf",
@@ -1909,7 +1930,7 @@
      "quotes": [
       {
        "documentId": "e945dfe25490c087",
-       "text": "Our Board of Directors approved the Company\u2019s regular quarterly dividend of $0.53 per share at its October 2026 meeting.",
+       "text": "Our Board of Directors approved the Company’s regular quarterly dividend of $0.53 per share at its October 2026 meeting.",
        "start": 186493,
        "end": 186613,
        "page": null
@@ -2141,6 +2162,13 @@
    "costUsd": 0.04878395,
    "generatedAt": "2026-10-29T22:49:59.626Z",
    "cachedFrom": "2026-10-29T22:49:59.626Z"
+  }
+ ],
+ "additions": [
+  {
+   "holdingId": "US5949181045",
+   "recordedAt": "2026-11-02T18:08:12.403Z",
+   "note": "The Microsoft card, with its earnings call, was recorded on 2026-11-02."
   }
  ]
 }

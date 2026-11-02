@@ -1,6 +1,8 @@
 import OpenAI from "openai";
+import { z } from "zod";
 import type { ChatCompletionMessage, ChatCompletionMessageParam, ChatCompletionTool } from "openai/resources/chat/completions";
-import { costOf, estimateCost, type Usage } from "./prices";
+import { wavDurationMs } from "@/lib/extract/audio";
+import { asrCost, ASR_MODEL, costOf, estimateCost, type Usage } from "./prices";
 import { appendLedger, assertTotalBudget, type RunBudget } from "./budget";
 
 /**
@@ -36,11 +38,33 @@ export interface ChatResult {
   costUsd: number;
 }
 
+export interface AsrRequest {
+  purpose: string;
+  /** Mono 16-bit PCM WAV at 16 or 24 kHz, 10 minutes and 32 MB at most. */
+  wav: Uint8Array;
+  languageBias?: string[];
+  keywords?: string[];
+}
+
+export interface AsrTurn {
+  startMs: number;
+  endMs: number;
+  transcript: string;
+}
+
+export interface AsrResult {
+  turns: AsrTurn[];
+  audioMs: number;
+  costUsd: number;
+}
+
 export interface LlmClient {
   readonly model: string;
   /** False for the fake / mock client: costs are zero and nothing hits the network. */
   readonly live: boolean;
   chat(req: ChatRequest, budget?: RunBudget): Promise<ChatResult>;
+  /** Speech to text. Absent on clients that have no transcription model. */
+  transcribeAudio?(req: AsrRequest, budget?: RunBudget): Promise<AsrResult>;
 }
 
 export class EmptyOutputError extends Error {}
@@ -125,7 +149,58 @@ export class MetaModelClient implements LlmClient {
     }
     return { model: this.model, message: choice.message, finishReason: choice.finish_reason, usage, costUsd };
   }
+
+  /** POST /asr/transcribe (https://dev.meta.ai/docs/api-reference/voice/transcribe). Same caps and ledger as chat. */
+  async transcribeAudio(req: AsrRequest, budget?: RunBudget): Promise<AsrResult> {
+    const estimate = asrCost(wavDurationMs(req.wav));
+    budget?.assertCanSpend(estimate);
+    assertTotalBudget(estimate, this.opts.ledgerFile, this.opts.totalCapUsd);
+
+    const request = { model: ASR_MODEL, audioEncoding: "WAV", mode: "ENDPOINTING", languageBias: req.languageBias, keywords: req.keywords };
+    const url = `${(this.opts.baseURL ?? "https://api.meta.ai/v1").replace(/\/$/, "")}/asr/transcribe`;
+    let res: Response | null = null;
+    for (let attempt = 0; attempt < 4; attempt++) {
+      const form = new FormData();
+      form.append("request", new Blob([JSON.stringify(request)], { type: "application/json" }));
+      form.append("audio", new Blob([req.wav.slice()], { type: "audio/wav" }), "clip.wav");
+      res = await fetch(url, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${this.opts.apiKey}`, Accept: "application/json" },
+        body: form,
+        signal: AbortSignal.timeout(this.opts.timeoutMs ?? 110_000),
+      });
+      // Failed and rate-limited requests are not billed. Only 429 and 5xx are worth another try.
+      if (res.status !== 429 && res.status < 500) break;
+      await new Promise((r) => setTimeout(r, 1000 * 2 ** attempt));
+    }
+    if (!res || !res.ok) throw new Error(`Transcription failed with status ${res?.status}.`);
+    const body = AsrResponseZ.parse(await res.json());
+    const audioMs = body.audioDurationMs ?? wavDurationMs(req.wav);
+    const costUsd = asrCost(audioMs);
+    budget?.record(costUsd);
+    appendLedger(
+      {
+        ts: new Date().toISOString(),
+        runId: budget?.runId ?? "none",
+        model: ASR_MODEL,
+        purpose: req.purpose,
+        prompt_tokens: 0,
+        cached_tokens: 0,
+        completion_tokens: 0,
+        reasoning_tokens: 0,
+        audio_ms: audioMs,
+        usd: Number(costUsd.toFixed(6)),
+      },
+      this.opts.ledgerFile,
+    );
+    return { turns: body.turns, audioMs, costUsd };
+  }
 }
+
+const AsrResponseZ = z.object({
+  audioDurationMs: z.number().optional(),
+  turns: z.array(z.object({ startMs: z.number(), endMs: z.number(), transcript: z.string() })),
+});
 
 export type FakeHandler = (req: ChatRequest, callIndex: number) => Partial<ChatCompletionMessage> & { content?: string | null };
 
@@ -136,7 +211,16 @@ export class FakeClient implements LlmClient {
   constructor(
     private handler: FakeHandler,
     readonly model = "fake-muse-spark",
+    private asrHandler?: (req: AsrRequest, callIndex: number) => AsrTurn[],
   ) {}
+  asrCalls: AsrRequest[] = [];
+  async transcribeAudio(req: AsrRequest, budget?: RunBudget): Promise<AsrResult> {
+    if (!this.asrHandler) throw new Error("FakeClient: no transcription handler.");
+    const i = this.asrCalls.length;
+    this.asrCalls.push(req);
+    budget?.record(0);
+    return { turns: this.asrHandler(req, i), audioMs: wavDurationMs(req.wav), costUsd: 0 };
+  }
   async chat(req: ChatRequest, budget?: RunBudget): Promise<ChatResult> {
     const i = this.calls.length;
     this.calls.push({ ...req, messages: [...req.messages] });

@@ -1,4 +1,6 @@
+import { timeOf } from "@/lib/extract/audio";
 import { normalize, toRawRange, type Normalized } from "@/lib/extract/normalize";
+import type { TranscriptTurn } from "@/lib/sources/types";
 
 export const QUOTE_MIN = 20;
 export const QUOTE_MAX = 400;
@@ -16,9 +18,14 @@ export interface VerifiedQuote {
   end: number;
   /** 1-based page number for PDFs, null for HTML. */
   page: number | null;
+  /** Time in the recording for a transcript, null otherwise. */
+  timeMs: number | null;
 }
 
-export type QuoteFailure = "too_short" | "too_long" | "unknown_document" | "not_found";
+export type QuoteFailure = "too_short" | "too_long" | "unknown_document" | "not_found" | "misheard_number";
+
+/** Two numbers in a row ("97.1 1 billion") is how the speech model stutters on a figure. Measured on the real call: see NOTES.md. */
+const MISHEARD_NUMBER = /(^|\s)\$?\d[\d.,]*\s+\$?\d[\d.,]*(?=\s|$)/;
 
 export interface QuoteCheck {
   ok: boolean;
@@ -31,6 +38,7 @@ export interface VerifiableDocument {
   id: string;
   text: string;
   pageStarts: number[];
+  turns?: TranscriptTurn[];
 }
 
 interface Prepared {
@@ -67,6 +75,7 @@ export class QuoteVerifier {
       if (nq.length > QUOTE_MAX) return { ok: false, quote: q, reason: "too_long" };
       const at = variant.text.indexOf(nq);
       if (at >= 0) {
+        if (prepared.doc.turns?.length && MISHEARD_NUMBER.test(nq)) return { ok: false, quote: q, reason: "misheard_number" };
         const raw = toRawRange(variant, at, at + nq.length);
         return {
           ok: true,
@@ -77,6 +86,7 @@ export class QuoteVerifier {
             start: raw.start,
             end: raw.end,
             page: pageOf(prepared.doc.pageStarts, raw.start),
+            timeMs: timeOf(prepared.doc.turns, raw.start, prepared.doc.text.length),
           },
         };
       }

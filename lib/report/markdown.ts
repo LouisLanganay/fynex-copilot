@@ -1,4 +1,5 @@
-import type { Card, CardDocument } from "@/lib/card";
+import type { Card, CardDocument, CardQuote } from "@/lib/card";
+import { formatTimestamp } from "@/lib/extract/audio";
 
 /** Render a run as Markdown (the committed example output). */
 
@@ -8,8 +9,10 @@ const STATUS: Record<string, string> = {
   no_new_information: "Nothing new",
 };
 
-function docLink(d: CardDocument | undefined, page: number | null): string {
+function docLink(d: CardDocument | undefined, q: CardQuote): string {
   if (!d) return "";
+  if (typeof q.timeMs === "number") return `[${d.title}, ${d.date}, at ${formatTimestamp(q.timeMs)}](${d.url}#t=${Math.floor(q.timeMs / 1000)})`;
+  const page = q.page;
   const url = d.url + (page && /\.pdf/i.test(d.url) ? `#page=${page}` : "");
   return `[${d.title}, ${d.date}${page ? `, p. ${page}` : ""}](${url})`;
 }
@@ -36,7 +39,7 @@ export function runToMarkdown(cards: Card[], meta: { model: string; generatedAt:
       for (const q of cl.quotes) {
         const d = c.documents.find((x) => x.id === q.documentId);
         lines.push(`   > "${q.text.replace(/\s+/g, " ").trim()}"`);
-        lines.push(`   > ${docLink(d, q.page)}`);
+        lines.push(`   > ${docLink(d, q)}`);
       }
       lines.push("");
     });
@@ -48,4 +51,9 @@ export function runToMarkdown(cards: Card[], meta: { model: string; generatedAt:
     );
   }
   return lines.join("\n");
+}
+
+/** Header figures of a recorded run, with its later additions stated. */
+export function sampleRunMeta(run: { model: string; recordedAt: string; totalUsd: number; additions?: { note: string }[] }) {
+  return { model: run.model, generatedAt: run.recordedAt, totalUsd: run.totalUsd, note: run.additions?.map((a) => a.note).join(" ") || undefined };
 }

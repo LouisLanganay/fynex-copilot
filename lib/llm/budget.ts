@@ -48,6 +48,8 @@ export interface LedgerEntry {
   cached_tokens: number;
   completion_tokens: number;
   reasoning_tokens: number;
+  /** Speech to text only: seconds billed come from this. */
+  audio_ms?: number;
   usd: number;
 }
 

@@ -30,6 +30,7 @@ export async function POST(req: Request) {
       errors: p.errors,
       estimateUsd: mode === "live" ? estimateRunUsd(withSource, model) : 0,
       recordedAt: mode === "replay" ? run?.recordedAt ?? null : null,
+      additions: mode === "replay" ? run?.additions ?? [] : [],
       passcodeRequired: mode === "live" && !!process.env.LIVE_RUN_PASSCODE,
       holdings: p.summary.holdings.map((h) => ({
         id: h.id,

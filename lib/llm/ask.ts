@@ -30,9 +30,9 @@ export async function askDocuments(
   // Input filter first: refusals cost $0 and never reach the model.
   if (isAdviceRequest(q)) return { kind: "refused", answer: REFUSAL, quotes: [], costUsd: 0, modelCalled: false };
 
-  const promptDocs = docs.map((d, i) => ({ promptId: `D${i + 1}`, title: d.title, date: d.date, source: d.source, text: d.text }));
+  const promptDocs = docs.map((d, i) => ({ promptId: `D${i + 1}`, title: d.title, date: d.date, source: d.source, text: d.text, transcript: d.contentType === "audio" }));
   const promptToDoc = new Map(promptDocs.map((p, i) => [p.promptId, docs[i].id]));
-  const verifier = new QuoteVerifier(docs.map((d) => ({ id: d.id, text: d.text, pageStarts: d.pageStarts })));
+  const verifier = new QuoteVerifier(docs.map((d) => ({ id: d.id, text: d.text, pageStarts: d.pageStarts, turns: d.turns })));
   let costUsd = 0;
   try {
     const res = await client.chat(

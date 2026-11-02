@@ -3,7 +3,7 @@
  * caching shares it across holdings (PLAN.md 3.1). Bump PROMPT_VERSION on any change:
  * it is part of the analysis cache key.
  */
-export const PROMPT_VERSION = "2026-10-29.1";
+export const PROMPT_VERSION = "2026-11-02.1";
 
 export const NO_ADVICE_RULE =
   "You explain what a public document says and why it is relevant given the holding's weight. You never recommend buying, selling, holding, adding, reducing or rebalancing, never give a price target, rating, fair value or prediction of the share price, and never say whether the stock is a good or bad investment. If asked, reply that you only explain documents.";
@@ -55,6 +55,8 @@ export interface PromptDocument {
   date: string;
   source: string;
   text: string;
+  /** Automatic transcript of a recording. */
+  transcript?: boolean;
 }
 
 /** Per-document cap (PLAN.md 5.5): 120k chars, else first 80k plus 40k after the outlook section. */
@@ -85,8 +87,17 @@ export function documentsBlock(docs: PromptDocument[]): string {
     .join("\n\n");
 }
 
+/** Only sent with a transcript, so the prompt of every other holding stays as recorded. */
+export const TRANSCRIPT_RULES = `A document whose source is "Earnings call" is an automatic speech transcript of the company's call. It has no speaker labels and may contain recognition errors: words misheard, repeated, or missing punctuation.
+- Copy quotes exactly as transcribed, errors included. Rule 2 still applies.
+- Do not fix or interpret a number or a word that looks misheard. Leave that passage out and use another one. Two numbers in a row, such as "97.1 1 billion", are misheard: the server rejects such a quote.
+- Write "the company said on the call", never a person's name, unless the transcript itself says who is speaking.
+- When the call and a release both give a figure, quote the release for the figure. Use the call for what the release does not contain, such as the outlook given on the call or answers to analysts.
+- Forward-looking statements are the company's own: attribute them to the company and do not present them as facts.`;
+
 export function analysisUserMessage(f: HoldingFacts, allowed: number[], docs: PromptDocument[]): string {
-  return `${holdingBlock(f, allowed)}\n\nDOCUMENTS:\n${documentsBlock(docs)}\n\nWrite the update card for this holding.`;
+  const rules = docs.some((d) => d.transcript) ? `\n\n${TRANSCRIPT_RULES}` : "";
+  return `${holdingBlock(f, allowed)}${rules}\n\nDOCUMENTS:\n${documentsBlock(docs)}\n\nWrite the update card for this holding.`;
 }
 
 export function retryMessage(problems: string[]): string {
@@ -98,6 +109,7 @@ export const TRIAGE_SYSTEM = `You are the document triage step of Fynex Copilot.
 Use the tools: call list_candidate_documents, then read_document_start on the documents whose titles are unclear, then call select_documents exactly once.
 Pick as primary the most recent document that contains company results, guidance, or a material corporate event (capital increase, bond issue, acquisition, management change). Ignore routine notices (voting rights, buyback declarations, meeting notices) unless nothing else exists.
 Pick as comparison the previous results release of the same company if one is listed, else null.
+If an "Earnings call" transcript is listed with the same date as the results release, pick the call as primary and that release as comparison: companies often give their outlook only on the call.
 Be quick: at most 3 reads.`;
 
 export const ASK_SYSTEM = `You are Fynex Copilot. You answer one question about a company using only the documents provided.

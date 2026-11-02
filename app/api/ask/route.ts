@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { cacheGet } from "@/lib/cache/cache";
 import { isAdviceRequest, REFUSAL } from "@/lib/guardrail/advice";
 import { askDocuments, MAX_QUESTION_CHARS } from "@/lib/llm/ask";
-import { checkPasscode, clientIp, currentMode, GateError, runBudget, serverClient } from "@/lib/pipeline/server";
+import { checkPasscode, clientIp, currentMode, GateError, readDocument, runBudget, serverClient } from "@/lib/pipeline/server";
 import type { SourceDocument } from "@/lib/sources/types";
 
 export const runtime = "nodejs";
@@ -28,7 +27,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ kind: "unavailable", answer: "Follow-up questions need a live model key. This deployment replays a recorded run.", quotes: [], modelCalled: false });
   }
   const ids = (body.documentIds ?? []).filter((x) => /^[a-f0-9]{16}$/.test(x)).slice(0, 2);
-  const docs = ids.map((id) => cacheGet<SourceDocument>("doc", id)?.value).filter((d): d is SourceDocument => !!d);
+  const docs = ids.map((id) => readDocument(id)).filter((d): d is SourceDocument => !!d);
   if (!docs.length) return NextResponse.json({ error: "Documents not available." }, { status: 404 });
 
   const key = `${clientIp(req)}|${ids.join(",")}`;

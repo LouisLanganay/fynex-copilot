@@ -1,10 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Card } from "@/lib/card";
-import { fixturesRoot, sha } from "@/lib/cache/cache";
+import { cacheGet, fixturesRoot, sha } from "@/lib/cache/cache";
 import { RunBudget, runCap } from "@/lib/llm/budget";
 import { clientFromEnv, type LlmClient } from "@/lib/llm/client";
 import { mockClient } from "@/lib/llm/mock";
+import type { SourceDocument } from "@/lib/sources/types";
 import { loadPortfolio, type LoadedPortfolio } from "./portfolio";
 
 /**
@@ -84,6 +85,8 @@ export interface SampleRun {
   recordedAt: string;
   model: string;
   totalUsd: number;
+  /** Cards recorded after the run itself, with their date. */
+  additions?: { holdingId: string; recordedAt: string; note: string }[];
   cards: Card[];
 }
 
@@ -99,7 +102,17 @@ export function readSampleRun(): SampleRun | null {
 export function recordedCard(holdingId: string): Card | null {
   const run = readSampleRun();
   const c = run?.cards.find((x) => x.holdingId === holdingId);
-  return c ? { ...c, cachedFrom: run!.recordedAt } : null;
+  return c ? { ...c, cachedFrom: c.recordedAt ?? run!.recordedAt } : null;
+}
+
+/**
+ * A document for the source panel or a question. A replayed card points into
+ * the recorded excerpt of a call; a live one into the full transcript of the
+ * local cache, when there is one.
+ */
+export function readDocument(id: string): SourceDocument | null {
+  const full = currentMode() === "replay" ? null : cacheGet<SourceDocument>("transcript", id)?.value;
+  return full ?? cacheGet<SourceDocument>("doc", id)?.value ?? null;
 }
 
 /** Cost estimate shown before a run: about $0.05 per holding on muse-spark-1.3 (measured). */

@@ -17,6 +17,14 @@ export const PRICES: Record<string, ModelPrice> = {
   "meta-models/muse-spark-open-1026": { input: 1.25, cachedInput: 1.25, output: 4.25 },
 };
 
+/** Speech to text is billed per second of audio processed, rounded down (same page, checked 2026-11-02). */
+export const ASR_MODEL = "muse-voice-transcribe-1.0";
+export const ASR_USD_PER_HOUR = 0.18;
+
+export function asrCost(audioMs: number): number {
+  return (Math.floor(audioMs / 1000) / 3600) * ASR_USD_PER_HOUR;
+}
+
 export class UnknownModelError extends Error {
   constructor(model: string) {
     super(`No price known for model "${model}": refusing to call it.`);

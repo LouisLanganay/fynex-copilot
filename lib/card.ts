@@ -9,6 +9,8 @@ export interface CardQuote {
   start: number;
   end: number;
   page: number | null;
+  /** Time in the recording, for a quote from a call transcript. */
+  timeMs?: number | null;
 }
 
 export interface CardClaim {
@@ -30,6 +32,8 @@ export interface CardDocument {
   pages: number;
   ocr: boolean;
   chars: number;
+  /** "audio" for a call transcript: quotes carry times instead of pages. */
+  contentType?: "html" | "pdf" | "audio";
 }
 
 export interface Rejection {
@@ -57,8 +61,12 @@ export interface Card {
   model: string;
   usage: { prompt: number; cached: number; completion: number; reasoning: number };
   costUsd: number;
+  /** Speech to text spent on the call this card reads, on top of the model tokens. Included in costUsd. */
+  transcriptionUsd?: number;
   note?: string;
   generatedAt: string;
   /** Set when served from the recorded sample run. */
   cachedFrom?: string;
+  /** Set on a card recorded after the run itself. */
+  recordedAt?: string;
 }

@@ -20,6 +20,7 @@
     "smoke": "tsx scripts/smoke.ts",
     "record-fixtures": "tsx scripts/record-fixtures.ts",
     "analyze:sample": "tsx scripts/analyze-sample.ts",
+    "record-call": "tsx scripts/record-call.ts",
     "cost-report": "tsx scripts/cost-report.ts",
     "render-example": "tsx scripts/render-example.ts"
   },

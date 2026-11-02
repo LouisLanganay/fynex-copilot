@@ -3,6 +3,7 @@ import { htmlToText } from "@/lib/extract/html-to-text";
 import { pdfToText, looksScanned } from "@/lib/extract/pdf-to-text";
 import type { Holding } from "@/lib/portfolio/csv";
 import type { ResolveDeps } from "@/lib/resolve/resolve";
+import { callCandidate, callForIsin, callDocumentId } from "./calls";
 import { amfQueryUrl, pickAmfDocuments, type AmfRecord } from "./amf";
 import {
   edgarCandidate,
@@ -90,6 +91,9 @@ export async function listCandidates(h: Holding, r: ResolvedHolding, now = new D
     const doc = pickEsefDocument(await esefFilings(r.lei), h.name);
     if (doc) out.push(doc);
   }
+  // A call is a candidate once its transcript is in the local cache (npm run record-call).
+  const call = callForIsin(h.isin);
+  if (call && cacheGet("transcript", callDocumentId(call))) out.push(callCandidate(call));
   out.sort((a, b) => b.date.localeCompare(a.date));
   return out.slice(0, 6);
 }
@@ -101,6 +105,7 @@ export interface LoadOptions {
 
 /** Fetch and extract a document, cached by id (= hash of the URL). */
 export async function loadDocument(c: CandidateDocument, o: LoadOptions = {}): Promise<SourceDocument> {
+  if (c.contentType === "audio") throw new Error("A call transcript is not fetched: run npm run record-call.");
   const hit = cacheGet<SourceDocument>("doc", c.id);
   if (hit) return hit.value;
   const bytes = await fetchBytes(c.url);

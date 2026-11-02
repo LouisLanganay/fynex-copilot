@@ -1,6 +1,8 @@
 # Fynex Copilot: sample portfolio run
 
-Generated 2026-10-29T22:51:04.453Z with `muse-spark-1.3` on the Meta Model API. Total model cost: $0.6668.
+Generated 2026-10-29T22:51:04.453Z with `muse-spark-1.3` on the Meta Model API. Total model cost: $0.8447.
+
+The Microsoft card, with its earnings call, was recorded on 2026-11-02.
 
 Information, not investment advice. Every quote below was checked word for word against the source document by the server.
 
@@ -164,44 +166,45 @@ _This line is 9.1% of the portfolio, rank 4 of 12 lines, with a value of EUR 215
 
 ## Microsoft Corp. (MSFT), 8.9% of the portfolio
 
-**Material change**: Microsoft reported higher revenue and profit led by cloud growth and returned cash to shareholders.
+**Material change**: Microsoft reported higher first-quarter revenue and profit led by cloud and Azure growth.
 
-1. **In the latest quarter, revenue was $92.3 billion and increased 19%, while diluted earnings per share was $4.92 and increased 32% on a GAAP basis.**
-   For a holder with 8.9% in this line, these headline sales and profit figures describe the scale of growth in the period.
+1. **Microsoft reported first-quarter revenue of $92.3 billion, up 19%, operating income of $45.9 billion, up 21%, and non-GAAP diluted earnings per share of $4.89, up 18%.**
+   This shows the overall scale and profitability reported for the quarter, which is the base for earnings and cash distributions for a holder.
    > "Revenue was $92.3 billion and increased 19%"
+   > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
+   > "Operating income was $45.9 billion and increased 21% (up 22% in constant currency)"
    > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
    > "Diluted earnings per share was $4.92 and increased 32% on a GAAP basis, and was $4.89 and increased 18% (up 19% in constant currency) on a non-GAAP basis"
    > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
 
-2. **Microsoft Cloud revenue was $63.9 billion with growth accelerating to 30%, and Azure revenue increased 48%, showing cloud strength.**
-   Cloud, which includes Azure, is presented as the growth driver, and constant currency means excluding currency moves, helping interpret underlying performance for this holding.
-   > "We delivered a strong start to the fiscal year with Microsoft Cloud revenue of $63.9 billion, with growth accelerating to 30% (up 31% in constant currency) year-over-year"
+2. **Microsoft Cloud revenue was $63.9 billion, up 30%, Azure revenue was up 48%, and remaining performance obligation, or contracted future revenue, was up 73% to $677 billion.**
+   Cloud and Azure are described as the main growth engine, and the backlog figure shows future work already contracted, which explains where growth came from.
+   > "Microsoft Cloud revenue was $63.9 billion and increased 30% (up 31% in constant currency)"
    > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
    > "Azure revenue increased 48%"
    > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
+   > "Commercial remaining performance obligation increased 73% to $677 billion"
+   > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
 
-3. **Microsoft returned $10.2 billion to shareholders in dividends and share repurchases in the first quarter of fiscal year 2027.**
-   Cash returns describe how capital was distributed during the quarter, which is relevant context for a holder with this position size.
+3. **Capital expenditures were $45.2 billion, free cash flow was $18.6 billion, and the company returned $10.2 billion through dividends and share repurchases.**
+   Heavy spending on data centers and chips lowers cash left over, while dividends and buybacks are the cash paid back to holders in the quarter.
+   > "Capital expenditures were $45.2 billion as some third party capacity deliveries we expected in Q1 were delayed"
+   > [Microsoft FY27 Q1 earnings call, 2026-10-28, at 19:17](https://samediusprodwestus2.blob.core.windows.net/video-7536455/6f6901e80d/VOD001.mp4?sv=2025-01-05&se=2031-10-28T23%3A32%3A06Z&sr=b&sp=r&sig=2b6d6hRr%2FfHfH0rRMrJDYYdReyf6KktsLfnoy6rmAe8%3D#t=1157)
+   > "and free cash flow was $18.6 billion reflecting higher capex expenditures."
+   > [Microsoft FY27 Q1 earnings call, 2026-10-28, at 20:03](https://samediusprodwestus2.blob.core.windows.net/video-7536455/6f6901e80d/VOD001.mp4?sv=2025-01-05&se=2031-10-28T23%3A32%3A06Z&sr=b&sp=r&sig=2b6d6hRr%2FfHfH0rRMrJDYYdReyf6KktsLfnoy6rmAe8%3D#t=1203)
    > "Microsoft returned $10.2 billion to shareholders in the form of dividends and share repurchases in the first quarter of fiscal year 2027."
    > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
 
-4. **Revenue in Agents and Infra was $76.8 billion and increased 25%, while Devices and Consumer was $15.5 billion and decreased 3%.**
-   This split shows where growth came from and which part shrank, helping explain what drives results for this holding.
-   > "Revenue in Agents and Infra was $76.8 billion and increased 25%, with the following business highlights:"
-   > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
-   > "Revenue in Devices and Consumer was $15.5 billion and decreased 3%, with the following business highlights:"
-   > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
+4. **The company said on the call it expects Azure revenue growth of 49 to 50% in constant currency, which excludes currency effects, and second-quarter capex over $50 billion with calendar-year spend of about $170 billion.**
+   The outlook frames expected demand for cloud capacity and the scale of planned investment, which affects costs and capacity available to meet demand.
+   > "In Azure, we expect revenue growth of 49 to 50% in constant currency with continued efficiency gains across our CPU and GPU fleet"
+   > [Microsoft FY27 Q1 earnings call, 2026-10-28, at 27:14](https://samediusprodwestus2.blob.core.windows.net/video-7536455/6f6901e80d/VOD001.mp4?sv=2025-01-05&se=2031-10-28T23%3A32%3A06Z&sr=b&sp=r&sig=2b6d6hRr%2FfHfH0rRMrJDYYdReyf6KktsLfnoy6rmAe8%3D#t=1634)
+   > "In Q2, we we expect capex spend will be over $50 billion therefore for the calendar calendar year spend should be approximately $170 billion due to the 3P capacity delays noted earlier"
+   > [Microsoft FY27 Q1 earnings call, 2026-10-28, at 31:01](https://samediusprodwestus2.blob.core.windows.net/video-7536455/6f6901e80d/VOD001.mp4?sv=2025-01-05&se=2031-10-28T23%3A32%3A06Z&sr=b&sp=r&sig=2b6d6hRr%2FfHfH0rRMrJDYYdReyf6KktsLfnoy6rmAe8%3D#t=1861)
 
-5. **Reported GAAP profit includes OpenAI investment effects, while non-GAAP excludes them, with non-GAAP profit lower than GAAP in the quarter.**
-   This distinction helps a holder see how much of the reported profit came from core operations versus investment gains in the period.
-   > "Non-GAAP results exclude the impact from investments in OpenAI, explained in the Non-GAAP Definition section below"
-   > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
-   > "In the first quarter of fiscal year 2027, net income and diluted earnings per share were impacted by net gains from investments in OpenAI, which resulted in an increase in net income and diluted earnings per share of $207 million and $0.03, respectively."
-   > [Microsoft Corp.: results release (8-K item 2.02, 2026-10-28), 2026-10-28](https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm)
+_Microsoft is 8.9% of the portfolio, ranked 5 of 12 lines, with a cost value of 2102 out of 23754 total._
 
-_This holding represents 8.9% of the portfolio at rank 5 of 12 with value EUR 2102 within total EUR 23754._
-
-<sub>muse-spark-1.3, 18,292 input tokens (2,771 cached), 6,541 output tokens (5,372 reasoning), $0.0476, attempts 1, 9 quotes verified, 0 rejected; triage: model (list_candidate_documents, read_document_start, read_document_start, select_documents)</sub>
+<sub>muse-spark-1.3, 22,270 input tokens (2,259 cached), 7,510 output tokens (6,314 reasoning), $0.2255, attempts 1, 11 quotes verified, 0 rejected; triage: model (list_candidate_documents, read_document_start, read_document_start, select_documents)</sub>
 
 ## ASML Holding N.V. (ASML), 8.2% of the portfolio
 
