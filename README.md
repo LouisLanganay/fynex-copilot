@@ -2,6 +2,8 @@
 
 **What changed in your stocks, with the source.**
 
+Live demo: **https://fynex-copilot.vercel.app** (replays a recorded run, no key needed).
+
 An AI investment copilot for retail investors, built at the [Meta Global AI Developer Hackathon](https://cerebralvalley.ai/e/meta-ai-developer-hackathon/details) (Startups track) on **Muse Spark** through the **Meta Model API**.
 
 Drop your portfolio as a CSV. For every holding, Fynex Copilot fetches the latest official documents (earnings releases and filings from SEC EDGAR, regulated information from the French AMF, ESEF annual reports for other European issuers, and the audio of an earnings call transcribed with Muse Voice Transcribe), has Muse Spark read them, and tells you in plain language:
