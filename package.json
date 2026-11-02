@@ -24,6 +24,7 @@
     "render-example": "tsx scripts/render-example.ts"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "5.2.5",
     "cheerio": "1.2.0",
     "next": "16.4.3",
     "openai": "7.45.1",

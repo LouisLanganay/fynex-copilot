@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useMemo, useRef, useState } from "react";
 import type { Card, CardQuote } from "@/lib/card";
+import { FEED_GROUP_LABEL, feedGroup, feedGroupRank, type FeedGroup } from "@/lib/lead";
 import HoldingCard, { SkeletonCard, ErrorCard } from "./HoldingCard";
+import LeadChanges from "./LeadChanges";
 import SourcePanel from "./SourcePanel";
 import type { PortfolioResponse } from "./types";
 
@@ -29,6 +31,9 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
   const [runId, setRunId] = useState(newRunId);
   const [source, setSource] = useState<{ card: Card; quote: CardQuote; index: number } | null>(null);
   const [dragOver, setDragOver] = useState(false);
+  const [showSetup, setShowSetup] = useState(false);
+  const [highlight, setHighlight] = useState<string | null>(null);
+  const highlightTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
 
   const load = useCallback(async (text: string) => {
@@ -84,8 +89,11 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
     const rid = newRunId();
     setRunId(rid);
     setRunning(true);
+    setShowSetup(false);
     const ids = portfolio.holdings.map((h) => h.id);
     setSlots(Object.fromEntries(ids.map((id) => [id, { state: "loading", startedAt: Date.now() } as Slot])));
+    // The setup above folds away: start from the top so the results open on their first line.
+    requestAnimationFrame(() => window.scrollTo({ top: 0 }));
     let next = 0;
     const worker = async () => {
       while (next < ids.length) await analyzeOne(ids[next++], rid);
@@ -100,6 +108,39 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
   const hasSources = portfolio?.holdings.some((h) => h.source);
   const sum = portfolio ? Math.round(portfolio.holdings.reduce((s, h) => s + h.weight, 0) * 1000) / 10 : 0;
 
+  // The opening block waits for every card: a heavier line may still be loading.
+  const settled = started && !Object.values(slots).some((s) => s.state === "loading" || s.state === "idle");
+  const collapsed = started && !showSetup;
+
+  const goToCard = useCallback((holdingId: string) => {
+    const el = document.getElementById(`card-${holdingId}`);
+    if (!el) return;
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
+    el.focus({ preventScroll: true });
+    setHighlight(holdingId);
+    if (highlightTimer.current) clearTimeout(highlightTimer.current);
+    highlightTimer.current = setTimeout(() => setHighlight(null), 2500);
+  }, []);
+
+  // Feed order: portfolio order while cards arrive, then grouped by status (weight order inside a group).
+  const feed = useMemo(() => {
+    if (!portfolio) return [];
+    const rows = portfolio.holdings.flatMap((h) => {
+      const s = slots[h.id];
+      return s && s.state !== "idle" ? [{ h, s, group: feedGroup(s.state === "done" ? s.card : null) }] : [];
+    });
+    if (!settled) return rows.map((r) => ({ ...r, label: null as string | null }));
+    const sorted = [...rows].sort((a, b) => feedGroupRank(a.group) - feedGroupRank(b.group));
+    const several = new Set(sorted.map((r) => r.group)).size > 1;
+    let last: FeedGroup | null = null;
+    return sorted.map((r) => {
+      const label: string | null = several && r.group !== last ? FEED_GROUP_LABEL[r.group] : null;
+      last = r.group;
+      return { ...r, label };
+    });
+  }, [portfolio, slots, settled]);
+
   const toggleTheme = () => {
     const dark = document.documentElement.classList.toggle("dark");
     try {
@@ -109,7 +150,7 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
 
   return (
     <div className="mx-auto max-w-5xl px-4 pb-24 pt-6 sm:px-6">
-      <header className="mb-8 flex items-start justify-between gap-4">
+      <header className="mb-6 flex items-start justify-between gap-4">
         <div>
           <h1 className="text-xl font-semibold tracking-tight">Fynex Copilot</h1>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">What changed in your stocks, with the source.</p>
@@ -122,6 +163,7 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
         </div>
       </header>
 
+      {!collapsed && (
       <section
         onDragOver={(e) => {
           e.preventDefault();
@@ -152,17 +194,23 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
         </div>
         <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">Your CSV is processed in memory and never stored. Only public filings are fetched. Information, not investment advice.</p>
       </section>
+      )}
 
       {loading && <p className="mt-6 text-sm text-neutral-500">Reading the portfolio and matching each line to its regulator...</p>}
       {loadError && <p className="mt-6 rounded-md bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-300">{loadError}</p>}
 
       {portfolio && (
-        <section className="mt-8" data-testid="portfolio">
+        <section className={collapsed ? "" : "mt-8"} data-testid="portfolio">
           <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
-            <h2 className="text-base font-semibold">Portfolio, {portfolio.holdings.length} lines</h2>
+            <h2 className="text-sm font-semibold">Portfolio, {portfolio.holdings.length} lines</h2>
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
               Total {money(portfolio.totalEur)}, weights sum to <span data-testid="weight-sum">{sum.toFixed(1)}%</span>
               {portfolio.atCost ? ", at cost basis" : ""}. ECB rates of {portfolio.fxDate}.
+              {started && (
+                <button onClick={() => setShowSetup((v) => !v)} aria-expanded={showSetup} data-testid="toggle-setup" className="ml-2 underline underline-offset-2 hover:text-neutral-900 dark:hover:text-neutral-100">
+                  {showSetup ? "Hide holdings" : "Show holdings"}
+                </button>
+              )}
             </p>
           </div>
           {portfolio.errors.length > 0 && (
@@ -174,6 +222,7 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
               ))}
             </ul>
           )}
+          {!collapsed && (
           <div className="overflow-x-auto rounded-lg border border-neutral-200 dark:border-neutral-800">
             <table className="w-full min-w-[560px] text-sm">
               <thead className="bg-neutral-50 text-left text-xs text-neutral-500 dark:bg-neutral-900 dark:text-neutral-400">
@@ -202,9 +251,10 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
               </tbody>
             </table>
           </div>
+          )}
 
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-            {portfolio.passcodeRequired && (
+          <div className={`flex flex-col gap-3 sm:flex-row sm:items-center ${collapsed ? "" : "mt-4"}`}>
+            {!collapsed && portfolio.passcodeRequired && (
               <input
                 type="password"
                 value={passcode}
@@ -213,14 +263,16 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
                 className="rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm dark:border-neutral-700"
               />
             )}
-            <button
-              onClick={analyzeAll}
-              disabled={running || !hasSources}
-              data-testid="analyze"
-              className="rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700 disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
-            >
-              {running ? "Analyzing..." : `Analyze ${portfolio.holdings.length} holdings`}
-            </button>
+            {!collapsed && (
+              <button
+                onClick={analyzeAll}
+                disabled={running || !hasSources}
+                data-testid="analyze"
+                className="rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700 disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
+              >
+                {running ? "Analyzing..." : `Analyze ${portfolio.holdings.length} holdings`}
+              </button>
+            )}
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
               {portfolio.mode === "live" && `Live run on ${portfolio.model}, estimated cost about $${portfolio.estimateUsd.toFixed(2)} (hard cap $3).`}
               {portfolio.mode === "mock" && "Mock mode: a deterministic stand-in replaces the model, no cost."}
@@ -231,25 +283,27 @@ export default function Copilot({ sampleCsv }: { sampleCsv: string }) {
       )}
 
       {portfolio && started && (
-        <section className="mt-10" data-testid="feed">
-          <h2 className="mb-3 text-base font-semibold">What changed</h2>
-          <div className="flex flex-col gap-4">
-            {portfolio.holdings.map((h) => {
-              const s = slots[h.id];
-              if (!s || s.state === "idle") return null;
-              if (s.state === "loading") return <SkeletonCard key={h.id} name={h.name} weightPct={h.weightPct} startedAt={s.startedAt} />;
-              if (s.state === "error") return <ErrorCard key={h.id} name={h.name} message={s.message} onRetry={() => analyzeOne(h.id, runId)} />;
-              return (
-                <HoldingCard
-                  key={h.id}
-                  card={s.card}
-                  runId={runId}
-                  passcode={passcode}
-                  activeQuote={source?.card.holdingId === h.id ? source.quote : null}
-                  onQuote={(quote, index) => setSource({ card: s.card, quote, index })}
-                />
-              );
-            })}
+        <section className="mt-8" data-testid="feed">
+          <h2 className="mb-4 text-xl font-semibold tracking-tight">What changed</h2>
+          {settled && <LeadChanges cards={cards} onCard={goToCard} onSource={(card, quote, index) => setSource({ card, quote, index })} />}
+          <div className="flex flex-col gap-5">
+            {feed.map(({ h, s, label }) => (
+              <Fragment key={h.id}>
+                {label && <h3 data-testid="feed-group" className="mt-3 text-sm font-medium text-neutral-500 first:mt-0 dark:text-neutral-400">{label}</h3>}
+                {s.state === "loading" && <SkeletonCard name={h.name} weightPct={h.weightPct} startedAt={s.startedAt} />}
+                {s.state === "error" && <ErrorCard name={h.name} message={s.message} onRetry={() => analyzeOne(h.id, runId)} />}
+                {s.state === "done" && (
+                  <HoldingCard
+                    card={s.card}
+                    runId={runId}
+                    passcode={passcode}
+                    highlighted={highlight === h.id}
+                    activeQuote={source?.card.holdingId === h.id ? source.quote : null}
+                    onQuote={(quote, index) => setSource({ card: s.card, quote, index })}
+                  />
+                )}
+              </Fragment>
+            ))}
           </div>
         </section>
       )}
