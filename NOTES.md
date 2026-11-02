@@ -45,6 +45,16 @@ Log of deviations from PLAN.md, verified API facts and spend, kept by the buildi
 
 Recorded run (fixtures/sample-run.json): 12 of 12 cards `ok`, 52 claims, 116 quotes, all verified; one card (Schneider) needed the retry because its first answer hit `max_tokens` (fixed by raising it). 277k input tokens (38k cached), 85k output tokens of which 72k reasoning, $0.67.
 
+## 2026-11-02 (improvements before the new video)
+
+### Opening block and feed hierarchy
+
+- `lib/lead.ts` picks up to 3 `ok` cards with `material_change`, heaviest first (missing weights last, ties on rank then name). `components/LeadChanges.tsx` renders them under the "What changed" heading. No new model call, the recording is untouched. In the sample all 12 cards are material, so the block shows LVMH, TotalEnergies, NVIDIA (Schneider ties NVIDIA at 9.1% and is rank 4).
+- The block waits until no card is loading: during a live run a heavier line may still be pending.
+- Once a run starts, the upload zone and the holdings table fold away (a "Show holdings" button brings them back) and the page returns to the top, so the results are the first screen. On a phone the Analyze button is far below the fold: without the scroll reset the user landed in the middle of the feed.
+- Font: Inter from `@fontsource-variable/inter` through `next/font/local`, bundled at build time, no network at build or at runtime (OFL). Latin subset only.
+- Selectors kept for `../video/scripts/`: `try-sample`, `analyze`, `holding-row`, `source-badge`, `weight-sum`, `card`, `claim`, `source-chip`, `quote-mark`, `source-panel`, `card-footer`, `ask-input`, `ask-submit`, `ask-answer`, `article[data-holding]`, `p.font-medium` as the card headline, the heading "What changed", `claim.locator('p').nth(1)`. Behavior changes for the capture script: `holding-row`, `analyze` and "Drop your portfolio CSV" leave the DOM once a run starts, and the page scrolls to the top on Analyze. The status label in a card is now plain text, still "Material change".
+
 ### Still to do (M6 and M7)
 
 - Re-run the sample live around Nov 2 to pick up the releases of Oct 30 onwards (Apple's quarter, more Q3 releases), review every card by hand, re-record (`npm run analyze:sample -- --record`, about $0.70).

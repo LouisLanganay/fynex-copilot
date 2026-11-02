@@ -388,6 +388,11 @@ Dates are in Paris time. Each milestone ends with: all tests green, PLAN.md boxe
 - [ ] Optional stretch, only if everything above is done: (a) Baseten / Muse Spark Open provider toggle shown in the UI footer; (b) XBRL companyfacts for US holdings to show code-computed YoY revenue next to the model's claim; (c) "compare with previous release" diff view.
 - **Done when:** README is complete, a stranger can follow it, and the demo script (section 12) runs start to finish without a hiccup twice in a row.
 
+### M6b: Opening screen and hierarchy (Mon Nov 2, added)
+
+- [x] Opening block: up to 3 holdings with a material change, ordered by weight, computed by code from the cards (`lib/lead.ts`). Handles 0, 1 or 2 changes, missing weights, long names, phone width, dark mode.
+- [x] Feed hierarchy: type scale, spacing, status groups, self-hosted font. Setup folds away once a run starts.
+
 ### M7: Freeze (Tue Nov 3, 21:00 Paris)
 - [ ] Feature freeze. Only bug fixes after this point.
 - [ ] Final fixture recording, tag `v1.0-hackathon`.
@@ -418,6 +423,7 @@ Dates are in Paris time. Each milestone ends with: all tests green, PLAN.md boxe
 4. Every claim shows at least one source chip; click the first chip of the largest holding; expect the source panel with a `mark` element whose text equals the quote after normalization.
 5. Type "Should I sell?" in a follow-up box; expect the refusal text and no network call to `/api/ask` model path (assert via a request counter).
 6. Toggle dark mode, viewport 390x844: no horizontal scroll.
+7. Opening block: 3 rows in weight order, a row leads to its card and to its source; rewritten cards cover 0, 1 and 2 material changes, a missing weight and a long unbroken name at phone width.
 
 **Live check (manual script, costs money, not in CI):** `npm run analyze:sample -- --live` prints per-holding status, verified quote count, retries, cost, and the total.
 

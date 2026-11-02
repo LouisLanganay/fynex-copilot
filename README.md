@@ -14,7 +14,7 @@ It never tells you to buy or sell. It explains documents.
 
 See a real output: [`examples/sample-run.md`](examples/sample-run.md) (12 holdings, 52 claims, 116 quotes, every one verified word for word by the server, $0.67 of Muse Spark).
 
-| Portfolio and "What changed" feed | Source panel on the highlighted passage | Phone, dark mode |
+| Results: largest lines with a material change, then every card | Source panel on the highlighted passage | Phone, dark mode |
 |---|---|---|
 | ![Feed](docs/screenshots/feed.png) | ![Source panel](docs/screenshots/source-panel.png) | ![Mobile](docs/screenshots/mobile-dark.png) |
 
@@ -29,7 +29,7 @@ npm install
 npm run demo        # http://localhost:3000, no key needed
 ```
 
-Click **Try the sample portfolio**, then **Analyze 12 holdings**. Without a key the app replays the recorded live run of [`samples/portfolio.csv`](samples/portfolio.csv) (instant, no model call), labelled "Cached result from 2026-10-29". Click any `[n]` chip to open the source panel on the highlighted passage, and type "Should I sell?" in a card to see the refusal.
+Click **Try the sample portfolio**, then **Analyze 12 holdings**. The results open on the largest lines with a material change, ranked by weight by code, then every card. Without a key the app replays the recorded live run of [`samples/portfolio.csv`](samples/portfolio.csv) (instant, no model call), labelled "Cached result from 2026-10-29". Click any `[n]` chip to open the source panel on the highlighted passage, and type "Should I sell?" in a card to see the refusal.
 
 Live run, with a Meta Model API key:
 
@@ -43,7 +43,7 @@ Other scripts:
 
 | Command | What it does | Cost |
 |---|---|---|
-| `npm test` | 178 unit tests, no network, no model | $0 |
+| `npm test` | 188 unit tests, no network, no model | $0 |
 | `npm run e2e` | Playwright on the recorded sample (needs `npm run build` first) | $0 |
 | `npm run analyze:sample -- --mock --offline` | full pipeline with a deterministic stand-in model and the recorded documents | $0 |
 | `npm run analyze:sample -- --contributor` | live run on `muse-spark-1.3-contributor` (development on public data only) | about $0.03 |
@@ -74,7 +74,8 @@ flowchart LR
 3. **Triage agent.** When several documents are recent, Muse Spark gets three tools (`list_candidate_documents`, `read_document_start`, `select_documents`) and picks the document to analyze plus the previous results release for comparison. In the recorded run it used 2 to 4 tool calls per holding. A deterministic fallback covers a loop that does not finish.
 4. **Analysis.** One Chat Completions call per holding with a strict `json_schema` (status, headline, up to 5 claims, each with 1 to 3 quotes). The long system prompt comes first so Meta's prompt caching shares it across holdings.
 5. **Verification.** The server normalizes both sides (ligatures, soft hyphens, hyphenation across lines, curly quotes, dashes, NBSP) and checks that every quote exists verbatim in the document it cites, then maps it to its page. Every number written by the model must appear in that claim's quotes or in the code-computed list. A claim that fails is dropped; if nothing survives, the model gets one retry with the list of problems; if that fails too, the card falls back to a model-free summary marked "AI summary withheld".
-6. **Follow-up questions** are answered from the same documents with the same verification, at most 3 per holding.
+6. **Opening block.** The results start with up to 3 holdings with a verified material change, ordered by portfolio weight. It is plain code over the cards, with no model call, and ranks by weight only, never by what to do.
+7. **Follow-up questions** are answered from the same documents with the same verification, at most 3 per holding.
 
 ## Meta models used
 
@@ -138,6 +139,7 @@ Everything in this repository was created during the hackathon, starting Oct 27,
 - [x] No-advice guardrail (input and output filters)
 - [x] Web app: upload, "What changed" feed, source panel with highlighted passage, follow-up questions
 - [x] Budget caps and cost accounting
+- [x] Opening block: the largest lines with a material change, ranked by portfolio weight by code from the cards (no model call), each leading to its card and source
 
 The commit history of this repo is the record of the work. Build notes and verified API facts: [NOTES.md](NOTES.md). Plan: [PLAN.md](PLAN.md). Demo video plan: [docs/demo-video.md](docs/demo-video.md).
 
